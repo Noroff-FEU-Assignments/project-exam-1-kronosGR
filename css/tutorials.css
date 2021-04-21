@@ -1,0 +1,36 @@
+.tutorials {
+  margin: 20px 0px 25px;
+}
+
+.tutorial-item {
+  position: relative;
+  text-align: left;
+  padding: 10px;
+  margin: 10px 5px;
+  border: 1px var(--gray) solid;
+  border-radius: 10px 10px;
+  box-shadow: 5px 5px 10px var(--gray);
+}
+
+.tutorial-item a {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  padding: 5px 10px;
+  border: 2px var(--blue) solid;
+  background-color: var(--blue);
+  color: white;
+  border-radius: 15% 0%;
+  text-decoration: none;
+}
+
+.arrow-left{
+  width: 20%;
+  margin: 20px;
+}
+
+
+.arrow-right{
+  width: 20%;
+  margin: 20px;
+}

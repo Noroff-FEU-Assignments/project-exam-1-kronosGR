@@ -2,6 +2,17 @@ const BE_URL = "https://jsw.kandz.me/wp-json";
 const BE_POSTS = "/wp/v2/posts";
 const BE_MEDIA = "/wp/v2/media/";
 
+
+/**
+ * 
+ * @returns promise with the results
+ */
+export async function getProductsWithTotal(order, page, amount = 10){
+  const url = BE_URL + BE_POSTS + `?order=${order}&per_page=${amount}&page=${page}`
+  const res =  await fetch(url);    
+  return res;
+}
+
 /**
  * gets the last 12 posts
  * @param {string} order asc|desc

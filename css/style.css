@@ -2,11 +2,12 @@
 
 @import url(reset.css);
 @import url(variables.css);
+@import url(tutorials.css);
 
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100;0,400;1,100;1,400&display=swap");
 html,
 body {
-  background-color: white;
+  background-color: var(--gray);
   font-family: Roboto, sans-serif;
 }
 
@@ -33,6 +34,10 @@ a {
   font-weight: bold;
 }
 
+.wrapper{
+  background-color: white;
+}
+
 /* header */
 header {
   display: flex;
@@ -57,17 +62,30 @@ header section img {
 
 .logo {
   height: 80px;
+  transition: transform .2s;
 }
 
-#search{
+.logo:hover{
+  transform: scale(1.2)
+}
+
+#search {
   display: none;
 }
 
-#search:checked ~ #search-form{
+.search-image{
+  transition: .2s;
+}
+
+.search-image:hover{
+  transform: scale(1.2);
+}
+
+#search:checked ~ #search-form {
   display: block;
 }
 
-#search-form{
+#search-form {
   display: none;
   position: absolute;
   top: -10%;
@@ -75,13 +93,29 @@ header section img {
   box-shadow: 10px 10px 10px var(--gray);
 }
 
-#search-form input{
+#search-form input {
   height: 2rem;
   width: 13rem;
 }
 
+.account-image{
+  transition: .2s;
+}
+
+.account-image:hover{
+  transform: scale(1.2);
+}
+
 #menu {
   display: none;
+}
+
+.menu-image{
+  transition: .2s;
+}
+
+.menu-image:hover{
+  transform: scale(1.2);
 }
 
 #menu:checked ~ nav {
@@ -161,7 +195,7 @@ main {
   grid-template-columns: 1fr 1fr;
   row-gap: 4%;
   column-gap: 2%;
-  margin: 1% 3%;  
+  margin: 1% 3%;
 }
 
 .carousel-item {
@@ -169,7 +203,7 @@ main {
   background-color: white;
 }
 
-.after{
+.after {
   padding: 0 1.2%;
   width: 100px;
 }
@@ -190,12 +224,37 @@ main {
   position: relative;
 }
 
-.carousel-item div{
+.carousel-item div {
   background-color: var(--blue);
   padding: 4px 0;
   position: absolute;
   bottom: 0px;
   width: 100%;
+}
+
+#previous:hover{
+  transition: .2s;
+  transform: scale(1.2);
+}
+
+#next:hover{
+  transition: .2s;
+  transform: scale(1.2);
+}
+
+#circle1:hover{
+  transition: .2s;
+  transform: scale(1.2);
+}
+
+#circle2:hover{
+  transition: .2s;
+  transform: scale(1.2);
+}
+
+#circle3:hover{
+  transition: .2s;
+  transform: scale(1.2);
 }
 
 .start-learning {
@@ -212,7 +271,7 @@ main {
   box-shadow: 5px 5px 10px var(--gray);
 }
 
-.learning-item a {
+.cta{
   position: absolute;
   right: 5px;
   bottom: 5px;
@@ -222,6 +281,12 @@ main {
   color: white;
   border-radius: 15% 0%;
   text-decoration: none;
+  transition: .2s;
+}
+
+.cta:hover{
+  background-color: white;
+  color: var(--blue);
 }
 
 /* Footer */

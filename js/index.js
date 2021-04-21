@@ -188,7 +188,7 @@ async function fillStartLearning() {
     let shortDesc = post.content.rendered.substring(0, 100) + "...";
     learningItem.innerHTML = `<h3>${post.title.rendered}</h3>
     <p>${shortDesc}</p><br><br>
-    <a href="tutorial.html?id=${post.id}">Read</a>
+    <a href="tutorial.html?id=${post.id}" class="cta">Read</a>
     `;
 
     learningList.appendChild(learningItem);
