@@ -1,0 +1,1 @@
+import {fetchAllProduct} from './be.js';
