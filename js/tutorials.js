@@ -1,4 +1,4 @@
-import { fetchAllProduct, getProductsWithTotal } from "./be.js";
+import { getPostsWithTotal } from "./be.js";
 
 const tutorialsList = document.querySelector(".tutorials-list");
 const tutorialsPaging = document.querySelector("#tutorials-paging");
@@ -18,7 +18,7 @@ function showPage() {
  * Shows the tutorial list
  */
 async function fillTutorials() {
-  getProductsWithTotal("asc", page, pageSize)
+  getPostsWithTotal("asc", page, pageSize)
     .then((res) => {
       totalPages = Number(res.headers.get("x-wp-totalPages"));
       showPaging();

@@ -1,4 +1,4 @@
-import { fetchAllProduct, fetchMediaWithUrl } from "/js/be.js";
+import { fetchAllPosts, fetchMediaWithUrl } from "/js/be.js";
 
 const carousel = document.querySelector(".carousel");
 const carouselInner = document.querySelector(".car-inner");
@@ -79,7 +79,7 @@ window.addEventListener("resize", () => {
 showPage();
 
 async function showPage() {
-  res = await fetchAllProduct(12, "desc");
+  res = await fetchAllPosts(12, "desc");
   posts = await getMedia();
   showCarousel();
   fillStartLearning();
@@ -179,7 +179,7 @@ function checkTheCircles() {
  * Shows the start learning list
  */
 async function fillStartLearning() {
-  const learningPosts = await fetchAllProduct(6, "asc");
+  const learningPosts = await fetchAllPosts(6, "asc");
 
   learningPosts.forEach((post) => {
     const learningItem = document.createElement("div");
