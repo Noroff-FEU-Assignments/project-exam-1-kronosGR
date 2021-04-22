@@ -1,12 +1,12 @@
 .tutorials {
-  margin: 20px 0px 25px;
+  margin: 20px 0px 35px;
 }
 
 .tutorial-item {
   position: relative;
   text-align: left;
   padding: 10px;
-  margin: 10px 5px;
+  margin: 15px 5px;
   border: 1px var(--gray) solid;
   border-radius: 10px 10px;
   box-shadow: 5px 5px 10px var(--gray);
@@ -24,13 +24,29 @@
   text-decoration: none;
 }
 
-.arrow-left{
-  width: 20%;
+#tutorials-paging {
+  display: flex;
+  align-items: center;
+  flex-basis: 1;
+  justify-content: center;
+}
+
+.arrow-left {
+  width: 30%;
   margin: 20px;
 }
 
+.disabled{
+  cursor: not-allowed;
+  opacity: 0.5;
 
-.arrow-right{
-  width: 20%;
+}
+
+.arrow-right {
+  width: 30%;
   margin: 20px;
+}
+
+.page-number {
+  font-weight: bold;
 }
