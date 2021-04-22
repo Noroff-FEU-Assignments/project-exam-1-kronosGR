@@ -8,4 +8,8 @@
 
     --min-width: 375px;
 
+    --transition-dur: .2s;
+    --transition-dur-0-4: .4s;
+    --scale1-2: 1.2;
+
 }

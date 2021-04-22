@@ -36,6 +36,11 @@
   margin: 20px;
 }
 
+.arrow-left:hover{
+  transition: var(--transition-dur);
+  transform: scale(var(--scale1-2));
+}
+
 .disabled{
   cursor: not-allowed;
   opacity: 0.5;
@@ -45,6 +50,11 @@
 .arrow-right {
   width: 30%;
   margin: 20px;
+}
+
+.arrow-right:hover{
+  transition: var(--transition-dur);
+  transform: scale(var(--scale1-2));
 }
 
 .page-number {

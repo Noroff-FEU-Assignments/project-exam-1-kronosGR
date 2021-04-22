@@ -4,6 +4,17 @@ const BE_MEDIA = "/wp/v2/media/";
 
 
 /**
+ * get a product with product id
+ * @param {int} id Post id
+ * @returns a json with the product details
+ */
+export async function getPostWithId(id){
+  const res = await fetch(BE_URL + BE_POSTS+ "/" + id);
+  const json = await res.json();
+  return json;
+}
+
+/**
  * 
  * @returns promise with the results
  */

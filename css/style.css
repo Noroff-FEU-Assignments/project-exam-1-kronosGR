@@ -1,10 +1,11 @@
 /* Include other css files */
 
 @import url(reset.css);
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100;0,400;1,100;1,400&display=swap");
 @import url(variables.css);
 @import url(tutorials.css);
+@import url(tutorial.css);
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto:ital,wght@0,100;0,400;1,100;1,400&display=swap");
 html,
 body {
   background-color: var(--gray);
@@ -62,11 +63,11 @@ header section img {
 
 .logo {
   height: 80px;
-  transition: transform .2s;
+  transition: var(--transition-dur);
 }
 
 .logo:hover{
-  transform: scale(1.2)
+  transform: scale(var(--scale1-2));
 }
 
 #search {
@@ -74,21 +75,22 @@ header section img {
 }
 
 .search-image{
-  transition: .2s;
+  transition: var(--transition-dur);
 }
 
 .search-image:hover{
-  transform: scale(1.2);
+  transform: scale(var(--scale1-2));
 }
 
 #search:checked ~ #search-form {
   display: block;
+  z-index: 10;
 }
 
 #search-form {
   display: none;
   position: absolute;
-  top: -10%;
+  top: -7%;
   right: 100%;
   box-shadow: 10px 10px 10px var(--gray);
 }
@@ -99,11 +101,11 @@ header section img {
 }
 
 .account-image{
-  transition: .2s;
+  transition: var(--transition-dur);
 }
 
 .account-image:hover{
-  transform: scale(1.2);
+  transform: scale(var(--scale1-2));
 }
 
 #menu {
@@ -111,41 +113,66 @@ header section img {
 }
 
 .menu-image{
-  transition: .2s;
+  transition: var(--transition-dur);
 }
 
 .menu-image:hover{
-  transform: scale(1.2);
+  transform: scale(var(--scale1-2));
 }
 
 #menu:checked ~ nav {
-  display: block;
+  transition: var(--transition-dur-0-4);
+  left: -10px;
   z-index: 100;
 }
 
+.menu-title{
+  display: block;
+  padding: 8%;
+  width: 85%;
+  background-color: var(--blue);
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
 nav {
-  display: none;
-  position: absolute;
-  top: 170%;
+  transition: var(--transition-dur-0-4);
+  left: -1000px;
+  position: fixed;
+  top: -2px;
+  height: 100%;
+  width: 40%;
+  border: 1px var(--gray) solid;
+  background-color: white;
+  box-shadow: 10px 10px 10px var(--gray);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  z-index: 10;
 }
 
 nav ul {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  border: 1px var(--gray) solid;
-  background-color: white;
-  box-shadow: 10px 10px 10px var(--gray);
 }
 
 nav ul li {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   padding: 5px;
 }
 
 nav a {
   text-decoration: none;
-  color: black;
+  color: var(--blue);
+}
+
+.nav--img{
+  display: block;
+  height: auto;
+  width: 100%;
 }
 
 /* Main */
@@ -233,28 +260,28 @@ main {
 }
 
 #previous:hover{
-  transition: .2s;
-  transform: scale(1.2);
+  transition: var(--transition-dur);
+  transform: scale(var(--scale1-2));
 }
 
 #next:hover{
-  transition: .2s;
-  transform: scale(1.2);
+  transition: var(--transition-dur);
+  transform: scale(var(--scale1-2));
 }
 
 #circle1:hover{
-  transition: .2s;
-  transform: scale(1.2);
+  transition: var(--transition-dur);
+  transform: scale(var(--scale1-2));
 }
 
 #circle2:hover{
-  transition: .2s;
-  transform: scale(1.2);
+  transition: var(--transition-dur);
+  transform: scale(var(--scale1-2));
 }
 
 #circle3:hover{
-  transition: .2s;
-  transform: scale(1.2);
+  transition: var(--transition-dur);
+  transform: scale(var(--scale1-2));
 }
 
 .start-learning {
@@ -281,7 +308,7 @@ main {
   color: white;
   border-radius: 15% 0%;
   text-decoration: none;
-  transition: .2s;
+  transition: var(--transition-dur);
 }
 
 .cta:hover{
