@@ -1,0 +1,59 @@
+main > h2{
+  margin: 30px;
+}
+
+#registration--form{
+  display: flex;
+  flex-direction: column;  
+  margin: 15px 15px 30px 15px;
+  border: 1px var(--gray) solid;
+  padding: 10px;
+  border-radius: var(--radius-def);
+  box-shadow: var(--shadow-def);
+}
+
+#registration--form input{
+  display: block;
+  width: 98%;
+  margin: 5px 0;
+}
+
+#registration--form label{
+  display: block;
+  text-align: left;
+  margin: 8px 0;
+}
+
+button{
+  margin: 20px 0;
+}
+
+#login{
+  margin-top: 50px;
+}
+
+#login--form{
+  display: flex;
+  flex-direction: column;  
+  margin: 15px 15px 30px 15px;
+  border: 1px var(--gray) solid;
+  padding: 10px;
+  border-radius: var(--radius-def);
+  box-shadow: var(--shadow-def);
+}
+
+#login--form input{
+  display: block;
+  width: 98%;
+  margin: 5px 0;
+}
+
+#login--form label{
+  display: block;
+  text-align: left;
+  margin: 8px 0;
+}
+
+p:last-child{
+  margin-bottom: 30px;
+}
