@@ -19,10 +19,18 @@
   margin-right: 10px;
 }
 
+.tutorial-content{
+  border: 1px var(--gray-dark) solid;
+  border-radius: var(--radius-def);
+  padding: 15px;
+  box-shadow: var(--shadow-def);
+  margin-bottom: 20px;
+}
+
 .tutorial--img {
   width: 30%;
   float: left;
-  padding: 2% 3%;
+  padding: 3% 4% 2% 3%;
   transition: var(--transition-dur);
   border-radius: 15% 0%;
 }

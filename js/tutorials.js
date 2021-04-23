@@ -1,4 +1,5 @@
 import { getPostsWithTotal } from "./be.js";
+import { showPaging } from './utils.js';
 
 const tutorialsList = document.querySelector(".tutorials-list");
 const tutorialsPaging = document.querySelector("#tutorials-paging");
@@ -21,7 +22,7 @@ async function fillTutorials() {
   getPostsWithTotal("asc", page, pageSize)
     .then((res) => {
       totalPages = Number(res.headers.get("x-wp-totalPages"));
-      showPaging();
+      showPaging(tutorialsPaging, page, totalPages, "tutorials.html");
       return res.json();
     })
     .then((json) => {
@@ -31,40 +32,11 @@ async function fillTutorials() {
 
         let shortDesc = post.content.rendered.substring(0, 200) + "...";
         tutItem.innerHTML = `<h3>${post.title.rendered}</h3>
-     <p>${shortDesc}</p><br><br>
-     <a href="tutorial.html?id=${post.id}" class="cta">Read</a>
-     `;
+          <p>${shortDesc}</p><br><br>
+          <a href="tutorial.html?id=${post.id}" class="cta">Read</a>
+          `;
 
         tutorialsList.appendChild(tutItem);
       });
     });
-}
-
-function showPaging() {
-  if (page > 1) {
-    tutorialsPaging.innerHTML = `
-    <a href="tutorials.html?page=${
-      page - 1
-    }" ><img src="/images/arrow-left.png" class="arrow-left"></a>
-    `;
-  } else {
-    tutorialsPaging.innerHTML = `
-    <a href="javascript: void(0)" class="disabled"><img src="/images/arrow-left.png" class="arrow-left"></a>
-    `;
-  }
-  tutorialsPaging.innerHTML += `
-  <span class="page-number">Page ${page} / ${totalPages}</span>
-  `;
-
-  if (page < totalPages) {
-    tutorialsPaging.innerHTML += `
-    <a href="tutorials.html?page=${
-      page + 1
-    }" ><img src="/images/arrow-right.png" class="arrow-right"></a>
-    `;
-  } else {
-    tutorialsPaging.innerHTML += `
-    <a href="javascript: void(0)" class="disabled"><img src="/images/arrow-right.png" class="arrow-right"></a>
-    `;
-  }
 }

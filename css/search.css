@@ -1,0 +1,12 @@
+.search--thumb{
+  height: 40px;
+}
+
+.search-item-container{
+  display: flex;
+  align-items: center;  
+}
+
+.search-item-container > h3{
+  margin-left: 10px;
+}

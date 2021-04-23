@@ -6,6 +6,7 @@
 @import url(tutorials.css);
 @import url(tutorial.css);
 @import url(search.css);
+@import url(about.css);
 
 html,
 body {
@@ -93,7 +94,7 @@ header section img {
   position: absolute;
   top: -7%;
   right: 100%;
-  box-shadow: 10px 10px 10px var(--gray);
+  box-shadow: var(--shadow-def);
 }
 
 #search-form input {
@@ -147,7 +148,7 @@ nav {
   width: 40%;
   border: 1px var(--gray) solid;
   background-color: white;
-  box-shadow: 10px 10px 10px var(--gray);
+  box-shadow: var(--shadow-def);
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -199,8 +200,8 @@ main {
   margin: 10px auto;
   width: 95%;
   border: var(--gray-dark) 1px solid;
-  border-radius: 0px 10px;
-  box-shadow: 10px 10px 10px var(--gray);
+  border-radius: var(--radius-def);
+  box-shadow: var(--shadow-def);
   overflow: hidden;
 }
 
@@ -212,11 +213,6 @@ main {
   overflow: hidden;
   padding: 1% 1% 2% 1%;
 }
-
-/* .car-inner:after {
-  color: var(--blue);
-  content: "..";
-} */
 
 .carousel-child {
   display: grid;
@@ -296,7 +292,7 @@ main {
   margin: 10px 5px;
   border: 1px var(--gray) solid;
   border-radius: 10px 10px;
-  box-shadow: 5px 5px 10px var(--gray);
+  box-shadow: var(--shadow-def);
 }
 
 .cta{

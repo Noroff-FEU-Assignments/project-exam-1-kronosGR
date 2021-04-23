@@ -15,7 +15,7 @@ export async function searchPostsWithTotal(search, order, page, amount) {
   const url =
     BE_URL +
     BE_SEARCH +
-    `?search=${search}&order=${order}&per_page=${amount}&page=${page}`;
+    `${search}&order=${order}&per_page=${amount}&page=${page}&context=view`;
   const res = await fetch(url);
   return res;
 }
