@@ -6,15 +6,22 @@ const tutorial = document.querySelector(".tutorial");
 const modalWindow = document.querySelector(".modal-window");
 const modalWindowImg = document.querySelector(".modal-window--img");
 const closetBtn = document.querySelector(".close--btn");
-const figCaption = document.querySelector(".modal-window--figcaption")
+const figCaption = document.querySelector(".modal-window--figcaption");
+const backTitleCont = document.querySelector(".back-container a");
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-closetBtn.addEventListener("click", () => {
-  modalWindow.classList.remove("modal-window-show")
-})
+const referrer = document.referrer;
+let backTitle = "";
+backTitleCont.setAttribute("href", referrer);
+if (referrer.includes("search")) backTitle = "Search";
+else backTitle = "Tutorials";
+backTitleCont.innerHTML = '<img src="/images/arrow-left.png" alt="back to tutorials" />'+ backTitle;
 
+closetBtn.addEventListener("click", () => {
+  modalWindow.classList.remove("modal-window-show");
+});
 
 fillThePage();
 
@@ -43,15 +50,15 @@ async function fillThePage() {
   <div class="tutorial-content">
     <p>${text}</p>
   </div>
-  `
+  `;
   modalWindowImg.setAttribute("src", imgUrl);
-  modalWindowImg.setAttribute("alt", title)
+  modalWindowImg.setAttribute("alt", title);
   figCaption.innerHTML = title;
 
   const img = document.querySelector(".tutorial--img");
   img.addEventListener("click", () => {
     modalWindow.classList.add("modal-window-show");
-  })
-  
+  });
+
   console.log(post);
 }
