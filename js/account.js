@@ -7,38 +7,89 @@ const regUsername = document.querySelector("#reg-username");
 const regPassword = document.querySelector("#reg-password");
 const regPassword2 = document.querySelector("#reg-password2");
 const regError = document.querySelector("#reg-error");
+const regButton = document.querySelector("#registration--form button");
 const logForm = document.querySelector("#login--form");
 const logUsername = document.querySelector("#log-username");
 const logPassword = document.querySelector("#reg-password");
 const logError = document.querySelector("#log-error");
 const page2 = document.querySelector("#page2");
 
+let regUsernameReady = false;
+let regEmailReady = false;
+let regPassReady = false;
+let regPass2Ready = false;
+
 regUsername.addEventListener("blur", (e) => {
   if (regUsername.value.length < 3) {
     Utils.showError(regUsername, "Minimum 5 characters");
+    regUsernameReady = false;
   } else {
     Utils.hideError(regUsername);
+    regUsernameReady = true;
   }
+  checkForm(
+    regButton,
+    regUsernameReady,
+    regEmailReady,
+    regPassReady,
+    regPass2Ready
+  );
 });
 
 regEmail.addEventListener("blur", (e) => {
-  console.log("aa");
+  if (!Utils.regexEmail.test(regEmail.value.toLowerCase())) {
+    Utils.showError(regEmail, "Enter a valid email address");
+    regEmailReady = false;
+  } else {
+    Utils.hideError(regEmail);
+    regEmailReady = true;
+  }
+  checkForm(
+    regButton,
+    regUsernameReady,
+    regEmailReady,
+    regPassReady,
+    regPass2Ready
+  );
 });
 
 regPassword.addEventListener("blur", (e) => {
-  if (regPassword.value.length < 6){
+  if (regPassword.value.length < 6) {
+    regPassReady = false;
     Utils.showError(regPassword, "Minimum 6 characters");
   } else {
     Utils.hideError(regPassword);
+    regPassReady = true;
   }
+  checkForm(
+    regButton,
+    regUsernameReady,
+    regEmailReady,
+    regPassReady,
+    regPass2Ready
+  );
 });
 
-regPassword2.addEventListener("blur", (e) => {
-  if (regPassword2.value != regPassword.value){
+regPassword2.addEventListener("blur", (e) => {  
+  if (regPassword2.value != regPassword.value) {
     Utils.showError(regPassword2, "The passwords are not the same");
+    regPass2Ready = false;
   } else {
-    Utils.hideError(regPassword2);
+    if (regPassword.value != "" ){
+      Utils.hideError(regPassword2);
+      regPass2Ready = true;
+    } else {
+      Utils.showError(regPassword2, "Passwords do not the match");
+      regPass2Ready = false;
+    }
   }
+  checkForm(
+    regButton,
+    regUsernameReady,
+    regEmailReady,
+    regPassReady,
+    regPass2Ready
+  );
 });
 
 regForm.addEventListener("submit", (e) => {
@@ -59,10 +110,19 @@ regForm.addEventListener("submit", (e) => {
         ).then((res) => {
           if (res.ok) {
             // login to user already created and redirect to
-            console.log(res);
+            Be.login(regUsername.value, regPassword.value)
+              .then(res => {
+                if (res.ok){
+                  // redirect to account-details.page
+                  window.location.href = "account-details.html";
+                } else {
+                  // something went wrong
+                }
+              })
           } else {
             // appear the message to the screen
-            console.log(res.data.message);
+            console.log(res)
+            regError.innerHTML = res.data.message;
           }
         });
       } else {
@@ -73,3 +133,22 @@ regForm.addEventListener("submit", (e) => {
       console.log(err);
     });
 });
+
+/**
+ * checks if all true and enables the element
+ * @param {object} element element to be enabled|disabled
+ * @param  {...any} bools the values to be checked
+ */
+function checkForm(element, ...bools) {
+  let statusTrue = false;
+  let statusFalse = false;
+  for (let bool of bools) {
+    if (!bool) {
+      statusFalse = true;
+    } else {
+      statusTrue = true;
+    }
+  }
+  if (statusTrue && !statusFalse) element.disabled = false;
+  else element.disabled = true;
+}

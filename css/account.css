@@ -55,6 +55,11 @@ button:hover{
   color: var(--blue);
 }
 
+button:disabled{
+  cursor: not-allowed;
+  background-color: var(--gray-dark);
+}
+
 #login {
   margin-top: 50px;
 }

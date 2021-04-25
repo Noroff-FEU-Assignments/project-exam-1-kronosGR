@@ -1,13 +1,17 @@
 
-//html regex
+// html regex
 export const regexHTML = /(<([^>]+)>)/gi;
+
+// email regex
+export const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 /**
  * hide the error message
  * @param {object} el the element to be changed
  */
 export function hideError(el){
-  el.parentNode.removeChild(el.previousSibling);
+  if (el.parentNode.contains(el.parentNode.querySelector("span")))
+    el.parentNode.removeChild(el.previousSibling);
 }
 
 /**
@@ -15,10 +19,13 @@ export function hideError(el){
  * @param {object} el the element to be changed
  */
 export function showError(el, msg){
-  const error = document.createElement("span");
-  error.innerHTML = msg;
-  error.classList.add("error");
-  el.parentNode.insertBefore(error, el);
+  if (!el.parentNode.contains(el.parentNode.querySelector("span"))){
+    const error = document.createElement("span");
+    error.innerHTML = msg;
+    error.classList.add("error");
+    el.parentNode.insertBefore(error, el);
+
+  }
 }
 
 /**
