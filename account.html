@@ -11,7 +11,7 @@
     <script src="js/account.js" type="module" defer></script>
     <title>JS World | Account</title>
   </head>
-  <body  id="register">
+  <body id="login">
     <div class="wrapper">
       <header>
         <a href="index.html">
@@ -53,52 +53,63 @@
       </header>
 
       <main>
-        <h1>Registration / Log in</h1>
+        <h1>Log in / Register</h1>
         <hr />
-        <h2>Register</h2>
-        <form method="GET" id="registration--form">
-          <label for="reg-username">
+        <h2 id="login">Login</h2>
+        <form method="GET" id="login--form">
+          <label for="log-username">
             Username
-            <input type="text" name="reg-username" id="reg-username" required tabindex="1"/>
-          </label>
-          <label for="reg-email">
-            Email
-            <input type="email" name="reg-email" id="reg-email" required  tabindex="2"/>
+            <input
+              type="text"
+              name="log-username"
+              id="log-username"
+              required
+              tabindex="1"
+            />
           </label>
           <label for="reg-password">
             Password
-            <input type="password" name="reg-password" id="reg-password" required tabindex="3"/>
+            <input
+              type="password"
+              name="log-password"
+              id="log-password"
+              required
+              tabindex="2"
+            />
           </label>
-          <label for="reg-password2">
-            Password again
-            <input type="password" name="reg-password2" id="reg-password2" required tabindex="4"/>
-          </label>
-          <p id="reg-error"></p>
-          <button type="submit" disabled  tabindex="5">Register</button>
-
+          <button type="submit" tabindex="3">Log in</button>
+          <p id="log-error"></p>
         </form>
-        <p id="msg-login">
-          Do you have an account? Then,
-          <a href="#login">Log in</a>
+        <p id="msg-register">
+          You don't have an account? Then,
+          <a href="#page2">register</a>
         </p>
-        <hr />
+
         <div id="page2">
-          <h2 id="login">Login</h2>
-          <form method="GET" id="login--form">
-            <label for="log-username">
+          <h2>Register</h2>
+          <form method="GET" id="registration--form">
+            <label for="reg-username">
               Username
-              <input type="text" name="log-username" id="log-username" required />
+              <input type="text" name="reg-username" id="reg-username" required />
+            </label>
+            <label for="reg-email">
+              Email
+              <input type="email" name="reg-email" id="reg-email" required />
             </label>
             <label for="reg-password">
               Password
-              <input type="password" name="log-password" id="rlogeg-password" required/>
+              <input type="password" name="reg-password" id="reg-password" required />
             </label>
-            <button type="submit">Log in</button>
-            <p id="log-error"></p>
+            <label for="reg-password2">
+              Password again
+              <input type="password" name="reg-password2" id="reg-password2" required />
+            </label>
+            <p id="reg-error"></p>
+            <button type="submit" disabled>Register</button>
           </form>
-          <p id="msg-register">
-            You don't have an account? Then,
-            <a href="#register">register</a>
+          <p id="msg-login">
+            Do you have an account? Then,
+            <a href="#login">Log in</a>
           </p>
         </div>
       </main>

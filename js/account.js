@@ -10,7 +10,7 @@ const regError = document.querySelector("#reg-error");
 const regButton = document.querySelector("#registration--form button");
 const logForm = document.querySelector("#login--form");
 const logUsername = document.querySelector("#log-username");
-const logPassword = document.querySelector("#reg-password");
+const logPassword = document.querySelector("#log-password");
 const logError = document.querySelector("#log-error");
 const page2 = document.querySelector("#page2");
 
@@ -19,9 +19,27 @@ let regEmailReady = false;
 let regPassReady = false;
 let regPass2Ready = false;
 
+// login ------->
+logForm.addEventListener("submit", e => {
+  e.preventDefault();
+
+  Be.login(logUsername.value, logPassword.value)
+    .then(res => {
+      if (res.ok)
+        window.location.href = "account-details.html"
+      else {
+        logError.innerHTML = res.data.message.replace(Utils.regexAnchor, "");
+        console.log(res.data)
+      }
+    })
+})
+
+// <------- end of login
+
+// registration ------->
 regUsername.addEventListener("blur", (e) => {
   if (regUsername.value.length < 3) {
-    Utils.showError(regUsername, "Minimum 5 characters");
+    Utils.showError(regUsername, "Minimum 3 characters");
     regUsernameReady = false;
   } else {
     Utils.hideError(regUsername);
@@ -117,6 +135,7 @@ regForm.addEventListener("submit", (e) => {
                   window.location.href = "account-details.html";
                 } else {
                   // something went wrong
+                  console.log(res.data.message)
                 }
               })
           } else {
@@ -133,6 +152,8 @@ regForm.addEventListener("submit", (e) => {
       console.log(err);
     });
 });
+// <------- end of registration
+
 
 /**
  * checks if all true and enables the element

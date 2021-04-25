@@ -5,6 +5,9 @@ export const regexHTML = /(<([^>]+)>)/gi;
 // email regex
 export const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+// anchor regex
+export const regexAnchor = /<a[^>]*>(.*?)<\/a>/g;
+
 /**
  * hide the error message
  * @param {object} el the element to be changed

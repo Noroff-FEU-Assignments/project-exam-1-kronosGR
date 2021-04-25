@@ -60,12 +60,13 @@ button:disabled{
   background-color: var(--gray-dark);
 }
 
-#login {
-  margin-top: 50px;
-}
 
 #page2 {
   margin: 40% 0;
+}
+
+#page2 h2 {
+  padding-top: 40px;
 }
 
 #login--form {
