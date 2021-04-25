@@ -8,8 +8,8 @@
     <meta name="keywords" content="Javascript, js, tutorials, world" />
     <link rel="icon" href="favicon.png" />
     <link rel="stylesheet" href="/css/style.css" />
-    <script src="js/account.js" type="module" defer></script>
-    <title>JS World | Account</title>
+    <script src="js/account-details.js" type="module" defer></script>
+    <title>JS World | Account | </title>
   </head>
   <body  id="register">
     <div class="wrapper">
@@ -53,8 +53,72 @@
       </header>
 
       <main>
-        <h1>Registration / Log in</h1>
-       
+        <h1>Your Account</h1>
+        <ul class="account-nav">
+          <li><a href="#edit">Personal Information</a></li>
+          <li><a href="#pass">Password</a></li>
+          <li><a href="#posts">Posts</a></li>
+          <li><a href="" id="logout">Logout</a></li>
+        </ul>
+        <hr>
+        <div id="edit">
+          <h2>Edit your information</h2>
+          <section class="container">
+            <form id="personal--form">
+              <label for="first-name">
+                First Name
+                <input type="text" name="first-name" id="first-name">
+              </label>
+              <label for="last-name">
+                Last Name
+                <input type="text" name="last-name" id="last-name">
+              </label>
+              <label for="nickname">
+                Nickname
+                <input type="text" name="nickname" id="nickname">
+              </label>
+              <label for="email">
+                Email
+                <input type="email" name="email" id="email">
+              </label>              
+              <label for="extra-info">
+                Extra information
+                <textarea name ="extra-info" id="extra-info"></textarea>
+              </label>
+              <label for="url">
+                Url
+                <input type="text" name="url" id="url">
+              </label>
+              <button type="submit">Save</button>
+              <span id="feedback-personal"></span>
+            </form>
+          </section>
+        </div>
+        <hr>
+        <div id="pass">
+          <h2>Change your password</h2>
+          <section class="container">
+            <form id="password--form">
+              <label for="password">
+                Password
+                <input type="password" name="password" id="password">
+              </label>
+              <label for="password2">
+                Retype password
+                <input type="password" name="password2" id="password2">
+              </label>
+              <button type="submit" disabled>Save</button>
+              <span id="feedback-password"></span>
+            </form>
+          </section>
+        </div>
+        <hr>
+        <div id="posts">
+          <h2>Your posts</h2>
+          <section class="container">
+            
+          </section>
+        </div>
       </main>
 
       <footer>

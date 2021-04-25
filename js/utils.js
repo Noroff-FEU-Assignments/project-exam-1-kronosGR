@@ -9,6 +9,28 @@ export const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(
 export const regexAnchor = /<a[^>]*>(.*?)<\/a>/g;
 
 /**
+ * print and changes the style for negative feedback
+ * @param {object} el element to change
+ * @param {string} msg message to be printed
+ */
+export function negFeedback(el, msg){
+  el.style.color = "red";
+  el.style.fontStyle = "italic";
+  el.innerHTML = msg;
+}
+
+/**
+ * print and changes the style for positive feedback
+ * @param {object} el element to change
+ * @param {string} msg message to be printed
+ */
+export function posFeedback(el, msg){
+  el.style.color = "green";
+  el.style.fontStyle = "italic";
+  el.innerHTML = msg;
+}
+
+/**
  * hide the error message
  * @param {object} el the element to be changed
  */

@@ -1,4 +1,4 @@
-import { searchPostsWithTotal, getPostWithId } from "./be.js";
+import { searchPostsWithTotal, getPostWithId, checkIfLoggedIn } from "./be.js";
 import { showPaging } from "./utils.js";
 
 const tutorialsPaging = document.querySelector("#tutorials-paging");
@@ -19,6 +19,9 @@ document
   .setAttribute("content", "Search results for " + searchFor);
 
 fillResults();
+
+
+checkIfLoggedIn(document.querySelector(".account-image"));
 
 async function fillResults() {
   searchPostsWithTotal(searchFor, "desc", page, pageSize)

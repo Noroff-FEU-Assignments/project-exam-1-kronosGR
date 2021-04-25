@@ -18,9 +18,79 @@ export const USER_LOGIN = "user-login";
 export const RE_USERNAME = "registration";
 export const RE_PASSWORD = "123456";
 
+export function checkIfLoggedIn(el) {
+  if ((sessionStorage.getItem(USER_TOKEN) || "").length > 10) {
+    el.src = "/images/account-in.png";
+  } else {
+    el.src = "/images/account.png";
+  }
+}
+
+export async function getUserDetails(token, id) {
+  try {
+    const res = await fetch(BE_URL + BE_USERS + `/${id}?context=edit`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-type": "application/json",
+      },
+      redirect: "follow",
+    });
+    return createReturnFeed(res.ok, await res.json());
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
+ * Because I got tired to repeat this process with every fetch
+ * I decided to do this function. I hope I will remember to
+ * change all the fetch functions
+ * @param {boolean} status the status of fetch
+ * @param {json} data the data in json
+ * @returns an object with the results
+ */
+function createReturnFeed(status, data) {
+  return {
+    ok: status,
+    data: data,
+  };
+}
+
+/**
+ * Update a user
+ * @param {string} token
+ * @param {object} user
+ */
+export async function updateUser(token, user) {
+  try {
+    const res = await fetch(BE_URL + BE_USERS + `/${user.id}?context=edit`, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer" + token,
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        first_name: user.firstName,
+        last_name: user.lastName,
+        nickname: user.nickname,
+        url: user.url,
+        description: user.extraInfo,
+      }),
+      redirect: "follow",
+    });
+    const feed = {};
+    feed.ok = res.ok;
+    feed.data = await res.json();
+    return feed;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 /**
  * register a new user
- * @param {string} token important, without it no transactoin
+ * @param {string} token important, without it no transaction
  * @param {string} username
  * @param {string} email
  * @param {string} password
@@ -47,6 +117,20 @@ export async function register(token, username, email, password) {
   } catch (err) {
     console.log(err);
   }
+}
+
+/**
+ * logout by deleting the session storage items
+ */
+export function logout() {
+  sessionStorage.removeItem(USER_TOKEN);
+  sessionStorage.removeItem(USER_EMAIL);
+  sessionStorage.removeItem(USER_ID);
+  sessionStorage.removeItem(USER_AVATAR);
+  sessionStorage.removeItem(USER_FIRST_NAME);
+  sessionStorage.removeItem(USER_LAST_NAME);
+  sessionStorage.removeItem(USER_DISPLAY_NAME);
+  sessionStorage.removeItem(USER_LOGIN);
 }
 
 /**
@@ -77,7 +161,7 @@ export async function login(username, password) {
     const json = await res.json();
     const feed = {};
     feed.ok = res.ok;
-    feed.data =json;
+    feed.data = json;
     if (res.ok) {
       sessionStorage.setItem(USER_TOKEN, json.token);
       sessionStorage.setItem(USER_EMAIL, json.user_email);
@@ -127,8 +211,7 @@ export async function getPostWithId(id) {
  * @returns promise with the results
  */
 export async function getPostsWithTotal(order, page, amount = 10) {
-  const url =
-    BE_URL + BE_POSTS + `?order=${order}&per_page=${amount}&page=${page}`;
+  const url = BE_URL + BE_POSTS + `?order=${order}&per_page=${amount}&page=${page}`;
   const res = await fetch(url);
   return res;
 }
@@ -139,9 +222,7 @@ export async function getPostsWithTotal(order, page, amount = 10) {
  * @returns json with the posts
  */
 export async function fetchAllPosts(amount, order) {
-  const res = await fetch(
-    BE_URL + BE_POSTS + "?per_page=" + amount + "&order=" + order
-  );
+  const res = await fetch(BE_URL + BE_POSTS + "?per_page=" + amount + "&order=" + order);
   const json = await res.json();
   return json;
 }

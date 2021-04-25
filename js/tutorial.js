@@ -1,4 +1,4 @@
-import { getPostWithId } from "./be.js";
+import { getPostWithId, checkIfLoggedIn } from "./be.js";
 import { regexHTML } from "./utils.js";
 
 const tutorialTitle = document.querySelector(".tutorial-title");
@@ -22,6 +22,9 @@ backTitleCont.innerHTML = '<img src="/images/arrow-left.png" alt="back to tutori
 closetBtn.addEventListener("click", () => {
   modalWindow.classList.remove("modal-window-show");
 });
+
+
+checkIfLoggedIn(document.querySelector(".account-image"));
 
 fillThePage();
 

@@ -1,4 +1,4 @@
-import { fetchAllPosts, fetchMediaWithUrl } from "/js/be.js";
+import { fetchAllPosts, fetchMediaWithUrl, checkIfLoggedIn } from "/js/be.js";
 
 const carousel = document.querySelector(".carousel");
 const carouselInner = document.querySelector(".car-inner");
@@ -12,6 +12,8 @@ const learningList = document.querySelector(".learning-list");
 var page = 1;
 let res;
 let posts;
+
+checkIfLoggedIn(document.querySelector(".account-image"));
 
 next.addEventListener("click", (e) => {
   page = page < 3 ? (page += 1) : 3;

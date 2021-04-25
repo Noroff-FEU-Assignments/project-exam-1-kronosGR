@@ -19,6 +19,12 @@ let regEmailReady = false;
 let regPassReady = false;
 let regPass2Ready = false;
 
+if(sessionStorage.getItem(Be.USER_TOKEN)){
+  window.location.href = "account-details.html"
+}
+
+Be.checkIfLoggedIn(document.querySelector(".account-image"));
+
 // login ------->
 logForm.addEventListener("submit", e => {
   e.preventDefault();

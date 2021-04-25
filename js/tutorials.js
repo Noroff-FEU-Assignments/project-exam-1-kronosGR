@@ -1,4 +1,4 @@
-import { getPostsWithTotal } from "./be.js";
+import { getPostsWithTotal, checkIfLoggedIn } from "./be.js";
 import { showPaging } from './utils.js';
 
 const tutorialsList = document.querySelector(".tutorials-list");
@@ -8,6 +8,9 @@ const params = new URLSearchParams(window.location.search);
 let page = Number(params.get("page")) || 1;
 let totalPages = 0;
 let pageSize = 10;
+
+
+checkIfLoggedIn(document.querySelector(".account-image"));
 
 showPage();
 
