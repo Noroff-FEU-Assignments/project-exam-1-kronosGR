@@ -3,6 +3,25 @@
 export const regexHTML = /(<([^>]+)>)/gi;
 
 /**
+ * hide the error message
+ * @param {object} el the element to be changed
+ */
+export function hideError(el){
+  el.parentNode.removeChild(el.previousSibling);
+}
+
+/**
+ * Show an error message
+ * @param {object} el the element to be changed
+ */
+export function showError(el, msg){
+  const error = document.createElement("span");
+  error.innerHTML = msg;
+  error.classList.add("error");
+  el.parentNode.insertBefore(error, el);
+}
+
+/**
  * Show the paging
  * @param {DOM element} element that will be changed
  * @param {int} page current page

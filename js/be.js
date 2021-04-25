@@ -19,45 +19,43 @@ export const RE_USERNAME = "registration";
 export const RE_PASSWORD = "123456";
 
 /**
- * register a new use
+ * register a new user
  * @param {string} token important, without it no transactoin
  * @param {string} username
  * @param {string} email
  * @param {string} password
  */
-export function register(token, username, email, password) {
-  const headers = new Headers();
-
-  fetch(BE_URL + BE_USERS, {
-    method: "POST",
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-    body: JSON.stringify({
-      username: username,
-      email: email,
-      password: password,
-    }),
-    redirect: "follow",
-  })
-    .then((res) => {
-      console.log("----", res);
-      // 201 created!
-      if (res.status == 201) return res.json();
-      throw new Error(res.status);
-    })
-    .catch((err) => {
-      return err;
+export async function register(token, username, email, password) {
+  try {
+    const res = await fetch(BE_URL + BE_USERS, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+      redirect: "follow",
     });
+    const feed = {};
+    feed.ok = res.ok;
+    feed.data = await res.json();
+    return feed;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 /**
  * login to wp and set to session storage all the user info
  * @param {string} username
  * @param {string} password
- * @returns 200 or other
+ * @returns an object
  */
-export function login(username, password) {
+export async function login(username, password) {
   sessionStorage.removeItem(USER_TOKEN);
   sessionStorage.removeItem(USER_EMAIL);
   sessionStorage.removeItem(USER_ID);
@@ -67,19 +65,20 @@ export function login(username, password) {
   sessionStorage.removeItem(USER_DISPLAY_NAME);
   sessionStorage.removeItem(USER_LOGIN);
 
-  return fetch(BE_URL + BE_TOKEN, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username: username, password: password }),
-    redirect: "follow",
-  })
-    .then((res) => {
-      if (res.status == "200") return res.json();
-      throw new Error(res.status);
-    })
-    .then((json) => {
+  try {
+    const res = await fetch(BE_URL + BE_TOKEN, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: username, password: password }),
+      redirect: "follow",
+    });
+    const json = await res.json();
+    const feed = {};
+    feed.ok = res.ok;
+    feed.data =json;
+    if (res.ok) {
       sessionStorage.setItem(USER_TOKEN, json.token);
       sessionStorage.setItem(USER_EMAIL, json.user_email);
       sessionStorage.setItem(USER_ID, json.user_id);
@@ -88,11 +87,11 @@ export function login(username, password) {
       sessionStorage.setItem(USER_LAST_NAME, json.user_last_name);
       sessionStorage.setItem(USER_DISPLAY_NAME, json.user_display_name);
       sessionStorage.setItem(USER_LOGIN, json.user_login);
-      return { message: 200 };
-    })
-    .catch((err) => {
-      return err;
-    });
+    }
+    return feed;
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 /**

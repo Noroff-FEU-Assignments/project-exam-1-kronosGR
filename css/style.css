@@ -42,6 +42,13 @@ a {
   background-color: white;
 }
 
+.error{
+  color: red;
+  font-size: 0.9rem;
+  font-style: italic;
+  margin-left: 10px;
+}
+
 /* header */
 header {
   display: flex;

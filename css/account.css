@@ -1,59 +1,102 @@
-main > h2{
+main > h2 {
   margin: 30px;
 }
 
-#registration--form{
+#registration--form {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   margin: 15px 15px 30px 15px;
   border: 1px var(--gray) solid;
-  padding: 10px;
+  padding: 15px;
   border-radius: var(--radius-def);
   box-shadow: var(--shadow-def);
 }
 
-#registration--form input{
+#registration--form input {
   display: block;
   width: 98%;
   margin: 5px 0;
+  border: 2px var(--gray) solid;
+  padding: 10px 5px;
 }
 
-#registration--form label{
+#registration--form input:focus {
+  outline: none;
+  border: 2px var(--blue) solid;
+}
+
+#registration--form label {
   display: block;
   text-align: left;
   margin: 8px 0;
 }
 
-button{
-  margin: 20px 0;
+#reg-error {
+  color: red;
+  font-style: italic;
 }
 
-#login{
+button {
+  margin: 20px auto;
+  width: 50%;
+  font-size: 1.2rem;
+  background-color: var(--blue);  
+  padding: 5px 10px;
+  border: 2px var(--blue) solid;
+  background-color: var(--blue);
+  color: white;
+  border-radius: 15% 0%;
+  text-decoration: none;
+  transition: var(--transition-dur);
+}
+
+button:hover{
+  background-color: white;
+  color: var(--blue);
+}
+
+#login {
   margin-top: 50px;
 }
 
-#login--form{
+#page2 {
+  margin: 40% 0;
+}
+
+#login--form {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   margin: 15px 15px 30px 15px;
   border: 1px var(--gray) solid;
-  padding: 10px;
+  padding: 15px;
   border-radius: var(--radius-def);
   box-shadow: var(--shadow-def);
 }
 
-#login--form input{
+#login--form input {
   display: block;
   width: 98%;
   margin: 5px 0;
+  border: 2px var(--gray) solid;
+  padding: 10px 5px;
 }
 
-#login--form label{
+#login--form input:focus {
+  outline: none;
+  border: 2px var(--blue) solid;
+}
+
+#login--form label {
   display: block;
   text-align: left;
   margin: 8px 0;
 }
 
-p:last-child{
+#log-error {
+  color: red;
+  font-style: italic;
+}
+
+p:last-child {
   margin-bottom: 30px;
 }
