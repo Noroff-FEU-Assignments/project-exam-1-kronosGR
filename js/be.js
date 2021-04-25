@@ -57,6 +57,21 @@ function createReturnFeed(status, data) {
   };
 }
 
+export async function updatePassword(token, id, password) {
+  try {
+    const res = await fetch(BE_URL + BE_USERS + `/${id}?password=${password}`, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-type": "application/json",
+      },
+    });
+    return createReturnFeed(res.ok, await res.json());
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 /**
  * Update a user
  * @param {string} token
@@ -67,7 +82,7 @@ export async function updateUser(token, user) {
     const res = await fetch(BE_URL + BE_USERS + `/${user.id}?context=edit`, {
       method: "PUT",
       headers: {
-        Authorization: "Bearer" + token,
+        Authorization: "Bearer " + token,
         "Content-type": "application/json",
       },
       body: JSON.stringify({

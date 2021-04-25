@@ -94,7 +94,7 @@ regPassword.addEventListener("blur", (e) => {
   );
 });
 
-regPassword2.addEventListener("blur", (e) => {  
+regPassword2.addEventListener("input", (e) => {  
   if (regPassword2.value != regPassword.value) {
     Utils.showError(regPassword2, "The passwords are not the same");
     regPass2Ready = false;
