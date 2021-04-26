@@ -53,6 +53,7 @@ button {
 button:hover{
   background-color: white;
   color: var(--blue);
+  outline: none;
 }
 
 button:disabled{
