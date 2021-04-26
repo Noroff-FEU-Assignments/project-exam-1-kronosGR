@@ -34,7 +34,6 @@ else backTitle = "Home";
 backTitleCont.innerHTML =
   '<img src="/images/arrow-left.png" alt="back to tutorials" />' + backTitle;
 
-
 closetBtn.addEventListener("click", () => {
   modalWindow.classList.remove("modal-window-show");
 });
@@ -51,24 +50,7 @@ if ((sessionStorage.getItem(USER_TOKEN) || "").length > 10) {
 }
 
 fillThePage();
-// get the comments for the post
-getCommentsForBlogPost(id).then(res => {
-  if (res.ok) {
-    const comments = res.data;
-    if (comments.length > 0) {
-      // print the posts
-      comments.forEach(comment => {
-        commentLit.innerHTML = ``
-      })
-    } else {
-      // show an message
-      commentLit.innerHTML = "<span class='msg-nothing'>No comments found</span>"
-    }
-  } else {
-    // something went bad
-  }
-  console.log(res);
-});
+getComments();
 
 async function fillThePage() {
   const post = await getPostWithId(id);
@@ -120,7 +102,39 @@ comText.addEventListener("input", e => {
 comForm.addEventListener("submit", e => {
   e.preventDefault();
   postComment(sessionStorage.getItem(USER_TOKEN), id, comText.value).then(res => {
-    if (res.ok) posFeedback(comFeedback, "Your comment has been posted.");
-    else negFeedback(comFeedback, res.data.message);
+    if (res.ok) {
+      posFeedback(comFeedback, "Your comment has been posted.");
+      getComments();
+    } else negFeedback(comFeedback, res.data.message);
   });
 });
+
+// get the comments for the post
+function getComments() {
+  commentLit.innerHTML = "";
+  getCommentsForBlogPost(id).then(res => {
+    if (res.ok) {
+      const comments = res.data;
+      if (comments.length > 0) {
+        // print the posts
+        comments.forEach(comment => {
+          commentLit.innerHTML += `<div class="comment-container">
+        <img src="${comment.author_avatar_urls["48"]}" alt="${comment.author_name}">
+        <div class="comment-text">
+          ${comment.content.rendered}
+          <div>
+            <span class="comment-author">${comment.author_name}</span>
+            <span class="comment-date">${comment.date.replace("T", "  ")}</span>
+          </div>
+        </div>
+        </div>`;
+        });
+      } else {
+        // show an message
+        commentLit.innerHTML = "<span class='msg-nothing'>No comments found</span>";
+      }
+    } else {
+      // something went bad
+    }
+  });
+}

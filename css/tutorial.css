@@ -131,3 +131,39 @@
 #com-feedback{
   text-align: center;
 }
+
+.comment-container{
+  width: 95%;
+  margin: 10px 5px;
+  padding: 5px;
+  display: flex;
+  border-bottom: 1px var(--blue) solid;
+  align-items: flex-start;
+}
+
+.comment-text{
+  text-align: justify;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.comment-text p {
+  word-wrap: break-word;
+  font-size: 0.9rem;
+}
+
+.comment-text > div{
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.comment-author{
+  color: var(--blue);
+}
+
+.comment-date{
+  font-size: 0.7rem;
+}
