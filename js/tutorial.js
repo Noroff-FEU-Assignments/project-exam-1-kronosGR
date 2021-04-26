@@ -105,6 +105,8 @@ comForm.addEventListener("submit", e => {
     if (res.ok) {
       posFeedback(comFeedback, "Your comment has been posted.");
       getComments();
+      comForm.reset();
+      comBtn.disabled = true;
     } else negFeedback(comFeedback, res.data.message);
   });
 });
