@@ -1,5 +1,11 @@
-import { getPostWithId, checkIfLoggedIn } from "./be.js";
-import { regexHTML } from "./utils.js";
+import {
+  getPostWithId,
+  checkIfLoggedIn,
+  USER_TOKEN,
+  getCommentsForBlogPost,
+  postComment,
+} from "./be.js";
+import { regexHTML, showError, hideError, posFeedback, negFeedback } from "./utils.js";
 
 const tutorialTitle = document.querySelector(".tutorial-title");
 const tutorial = document.querySelector(".tutorial");
@@ -8,26 +14,61 @@ const modalWindowImg = document.querySelector(".modal-window--img");
 const closetBtn = document.querySelector(".close--btn");
 const figCaption = document.querySelector(".modal-window--figcaption");
 const backTitleCont = document.querySelector(".back-container a");
+const logWarn = document.querySelector("#login-warning");
+const comForm = document.querySelector("#comment--form");
+const comText = document.querySelector("#comment");
+const comBtn = document.querySelector("#comment--form button");
+const comFeedback = document.querySelector("#com-feedback");
+const commentLit = document.querySelector("#comment-list");
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
+// check the referrer and change the back link title
 const referrer = document.referrer;
 let backTitle = "";
 backTitleCont.setAttribute("href", referrer);
 if (referrer.includes("search")) backTitle = "Search";
 else if (referrer.includes("tutorial")) backTitle = "Tutorials";
-else backTitle = "Home"
-backTitleCont.innerHTML = '<img src="/images/arrow-left.png" alt="back to tutorials" />'+ backTitle;
+else backTitle = "Home";
+backTitleCont.innerHTML =
+  '<img src="/images/arrow-left.png" alt="back to tutorials" />' + backTitle;
+
 
 closetBtn.addEventListener("click", () => {
   modalWindow.classList.remove("modal-window-show");
 });
 
-
 checkIfLoggedIn(document.querySelector(".account-image"));
 
+// show the login warning and the text area for post
+if ((sessionStorage.getItem(USER_TOKEN) || "").length > 10) {
+  logWarn.style.display = "none";
+  comForm.style.display = "block";
+} else {
+  logWarn.style.display = "block";
+  comForm.style.display = "none";
+}
+
 fillThePage();
+// get the comments for the post
+getCommentsForBlogPost(id).then(res => {
+  if (res.ok) {
+    const comments = res.data;
+    if (comments.length > 0) {
+      // print the posts
+      comments.forEach(comment => {
+        commentLit.innerHTML = ``
+      })
+    } else {
+      // show an message
+      commentLit.innerHTML = "<span class='msg-nothing'>No comments found</span>"
+    }
+  } else {
+    // something went bad
+  }
+  console.log(res);
+});
 
 async function fillThePage() {
   const post = await getPostWithId(id);
@@ -63,6 +104,23 @@ async function fillThePage() {
   img.addEventListener("click", () => {
     modalWindow.classList.add("modal-window-show");
   });
-
-  console.log(post);
 }
+
+comText.addEventListener("input", e => {
+  if (comText.value.length < 10) {
+    showError(comText, "Minimum 10 characters");
+    comBtn.disabled = true;
+  } else {
+    hideError(comText);
+    comBtn.disabled = false;
+  }
+});
+
+// post comment
+comForm.addEventListener("submit", e => {
+  e.preventDefault();
+  postComment(sessionStorage.getItem(USER_TOKEN), id, comText.value).then(res => {
+    if (res.ok) posFeedback(comFeedback, "Your comment has been posted.");
+    else negFeedback(comFeedback, res.data.message);
+  });
+});

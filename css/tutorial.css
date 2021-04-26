@@ -92,3 +92,42 @@
   font-style: italic;
   margin-top: 10px;
 }
+
+#comments h2{
+  margin: 10px;
+}
+#comments p{
+  margin: 10px;
+}
+
+#comments p a{
+  color: var(--blue);
+}
+
+#comment-list{
+  width: 80%;
+  border: 1px var(--gray-dark) solid;
+  border-radius: var(--radius-def);
+  padding: 15px;
+  box-shadow: var(--shadow-def);
+  margin: 10px auto 30px;
+}
+
+#comment--form{
+  width: 90%;
+  margin: 20px auto;
+  text-align: left;
+}
+
+#comment--form button{
+  display: block;
+  margin: 20px auto 40px;
+} 
+
+#comment--form label{
+  display: inline;
+}
+
+#com-feedback{
+  text-align: center;
+}

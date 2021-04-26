@@ -4,7 +4,8 @@ const BE_MEDIA = "/wp/v2/media/";
 const BE_SEARCH = "/wp/v2/search?search=";
 const BE_TOKEN = "/jwt-auth/v1/token";
 const BE_USERS = "/wp/v2/users";
-const BE_CONTACT= "/contact-form-7/v1/contact-forms/44/feedback";
+const BE_CONTACT = "/contact-form-7/v1/contact-forms/44/feedback";
+const BE_COMMENT = "/wp/v2/comments?post=";
 
 export const USER_TOKEN = "user-token";
 export const USER_EMAIL = "user-email";
@@ -31,9 +32,47 @@ export function checkIfLoggedIn(el) {
   }
 }
 
+export async function getCommentsForBlogPost(postID){
+  try{
+    const res = await fetch(BE_URL + BE_COMMENT + postID , {
+      method: "GET",
+      redirect: "follow"
+    })
+    return createReturnFeed(res.ok, await res.json());
+  } catch(e){
+    console.log(e)
+  }
+}
+
+/**
+ * post a comment to a blog post
+ * @param {string} token 
+ * @param {int} postID  post id
+ * @param {string} comment 
+ * @returns return data object
+ */
+export async function postComment(token, postID, comment){
+  try{
+    const res = await fetch(BE_URL + BE_COMMENT + postID, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-type": "application/json"
+      },
+      redirect: "follow",
+      body: JSON.stringify({
+        content: comment
+      })
+    });
+    return createReturnFeed(res.ok, await res.json());
+  } catch(e){
+    console.log(e);
+  }
+}
+
 /**
  * get user info
- * @param {string} token 
+ * @param {string} token
  * @param {int} id user id
  * @returns an object with status and data from the fetch
  */
@@ -70,7 +109,7 @@ function createReturnFeed(status, data) {
 
 /**
  * update user password
- * @param {string} token 
+ * @param {string} token
  * @param {int} id user id
  * @param {string} password new password
  * @returns an object with the result
@@ -92,13 +131,13 @@ export async function updatePassword(token, id, password) {
 
 /**
  * send message to BE
- * @param {string} name 
- * @param {string} email 
- * @param {string} subject 
- * @param {string} msg 
+ * @param {string} name
+ * @param {string} email
+ * @param {string} subject
+ * @param {string} msg
  * @returns object with the results
  */
-export async function sendMessage(name, email, subject, msg){
+export async function sendMessage(name, email, subject, msg) {
   try {
     var data = new FormData();
     data.append("your-name", name);
@@ -108,10 +147,9 @@ export async function sendMessage(name, email, subject, msg){
     const res = await fetch(BE_URL + BE_CONTACT, {
       method: "POST",
       body: data,
-      redirect : "follow"
+      redirect: "follow",
     });
-    return createReturnFeed(res.ok, await res.json())
-
+    return createReturnFeed(res.ok, await res.json());
   } catch (e) {
     console.log(e);
   }
