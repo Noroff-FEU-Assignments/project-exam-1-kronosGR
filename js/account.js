@@ -19,8 +19,8 @@ let regEmailReady = false;
 let regPassReady = false;
 let regPass2Ready = false;
 
-if(sessionStorage.getItem(Be.USER_TOKEN)){
-  window.location.href = "account-details.html"
+if (sessionStorage.getItem(Be.USER_TOKEN)) {
+  window.location.href = "account-details.html";
 }
 
 Be.checkIfLoggedIn(document.querySelector(".account-image"));
@@ -29,21 +29,19 @@ Be.checkIfLoggedIn(document.querySelector(".account-image"));
 logForm.addEventListener("submit", e => {
   e.preventDefault();
 
-  Be.login(logUsername.value, logPassword.value)
-    .then(res => {
-      if (res.ok)
-        window.location.href = "account-details.html"
-      else {
-        logError.innerHTML = res.data.message.replace(Utils.regexAnchor, "");
-        console.log(res.data)
-      }
-    })
-})
+  Be.login(logUsername.value, logPassword.value).then(res => {
+    if (res.ok) window.location.href = "account-details.html";
+    else {
+      logError.innerHTML = res.data.message.replace(Utils.regexAnchor, "");
+      console.log(res.data);
+    }
+  });
+});
 
 // <------- end of login
 
 // registration ------->
-regUsername.addEventListener("blur", (e) => {
+regUsername.addEventListener("blur", e => {
   if (regUsername.value.length < 3) {
     Utils.showError(regUsername, "Minimum 3 characters");
     regUsernameReady = false;
@@ -51,7 +49,7 @@ regUsername.addEventListener("blur", (e) => {
     Utils.hideError(regUsername);
     regUsernameReady = true;
   }
-  checkForm(
+  Utils.checkForm(
     regButton,
     regUsernameReady,
     regEmailReady,
@@ -60,7 +58,7 @@ regUsername.addEventListener("blur", (e) => {
   );
 });
 
-regEmail.addEventListener("blur", (e) => {
+regEmail.addEventListener("blur", e => {
   if (!Utils.regexEmail.test(regEmail.value.toLowerCase())) {
     Utils.showError(regEmail, "Enter a valid email address");
     regEmailReady = false;
@@ -68,7 +66,7 @@ regEmail.addEventListener("blur", (e) => {
     Utils.hideError(regEmail);
     regEmailReady = true;
   }
-  checkForm(
+  Utils.checkForm(
     regButton,
     regUsernameReady,
     regEmailReady,
@@ -77,7 +75,7 @@ regEmail.addEventListener("blur", (e) => {
   );
 });
 
-regPassword.addEventListener("blur", (e) => {
+regPassword.addEventListener("blur", e => {
   if (regPassword.value.length < 6) {
     regPassReady = false;
     Utils.showError(regPassword, "Minimum 6 characters");
@@ -85,7 +83,7 @@ regPassword.addEventListener("blur", (e) => {
     Utils.hideError(regPassword);
     regPassReady = true;
   }
-  checkForm(
+  Utils.checkForm(
     regButton,
     regUsernameReady,
     regEmailReady,
@@ -94,12 +92,12 @@ regPassword.addEventListener("blur", (e) => {
   );
 });
 
-regPassword2.addEventListener("input", (e) => {  
+regPassword2.addEventListener("input", e => {
   if (regPassword2.value != regPassword.value) {
     Utils.showError(regPassword2, "The passwords are not the same");
     regPass2Ready = false;
   } else {
-    if (regPassword.value != "" ){
+    if (regPassword.value != "") {
       Utils.hideError(regPassword2);
       regPass2Ready = true;
     } else {
@@ -107,7 +105,7 @@ regPassword2.addEventListener("input", (e) => {
       regPass2Ready = false;
     }
   }
-  checkForm(
+  Utils.checkForm(
     regButton,
     regUsernameReady,
     regEmailReady,
@@ -116,66 +114,42 @@ regPassword2.addEventListener("input", (e) => {
   );
 });
 
-regForm.addEventListener("submit", (e) => {
+regForm.addEventListener("submit", e => {
   e.preventDefault();
 
   // login so it can create a user
   // the user can do only one thing, create accounts
   Be.login(Be.RE_USERNAME, Be.RE_PASSWORD)
-    .then((res) => {
+    .then(res => {
       if (res.ok) {
         //return 200 if login successful
         const token = window.sessionStorage.getItem(Be.USER_TOKEN);
-        Be.register(
-          token,
-          regUsername.value,
-          regEmail.value,
-          regPassword.value
-        ).then((res) => {
-          if (res.ok) {
-            // login to user already created and redirect to
-            Be.login(regUsername.value, regPassword.value)
-              .then(res => {
-                if (res.ok){
+        Be.register(token, regUsername.value, regEmail.value, regPassword.value).then(
+          res => {
+            if (res.ok) {
+              // login to user already created and redirect to
+              Be.login(regUsername.value, regPassword.value).then(res => {
+                if (res.ok) {
                   // redirect to account-details.page
                   window.location.href = "account-details.html";
                 } else {
                   // something went wrong
-                  console.log(res.data.message)
+                  console.log(res.data.message);
                 }
-              })
-          } else {
-            // appear the message to the screen
-            console.log(res)
-            regError.innerHTML = res.data.message;
+              });
+            } else {
+              // appear the message to the screen
+              console.log(res);
+              regError.innerHTML = res.data.message;
+            }
           }
-        });
+        );
       } else {
         console.log(res.data.message);
       }
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
     });
 });
 // <------- end of registration
-
-
-/**
- * checks if all true and enables the element
- * @param {object} element element to be enabled|disabled
- * @param  {...any} bools the values to be checked
- */
-function checkForm(element, ...bools) {
-  let statusTrue = false;
-  let statusFalse = false;
-  for (let bool of bools) {
-    if (!bool) {
-      statusFalse = true;
-    } else {
-      statusTrue = true;
-    }
-  }
-  if (statusTrue && !statusFalse) element.disabled = false;
-  else element.disabled = true;
-}

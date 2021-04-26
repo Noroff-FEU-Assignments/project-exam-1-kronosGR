@@ -1,4 +1,4 @@
-#contact--form{
+#contact--form {
   margin: 10px auto 50px;
   width: 95%;
   border: var(--gray-dark) 1px solid;
@@ -8,10 +8,11 @@
   flex-direction: column;
 }
 
-#contact--form input, #contact--form textarea{
+#contact--form input,
+#contact--form textarea {
   width: 90%;
 }
 
-#contact--form label{margin: 10px 10px;}
-
-
+#contact--form label {
+  margin: 10px 10px;
+}

@@ -45,6 +45,16 @@ Be.getUserDetails(token, id).then(res => {
   }
 });
 
+url.addEventListener("input", e => {
+  if (!Utils.regexUrl.test(url.value)){
+    Utils.showError(url, "It is not a valid url address")
+    personalForm.querySelector("button").disabled = true;
+  } else {
+    Utils.hideError(url);
+    personalForm.querySelector("button").disabled = false;
+  }
+})
+
 //update the personal information
 personalForm.addEventListener("submit", e => {
   e.preventDefault();
@@ -60,7 +70,7 @@ personalForm.addEventListener("submit", e => {
 
   Be.updateUser(token, user).then(res => {
     if (res.ok) {
-      posFeedback(feedbackPersonal, "Your profile has been updated");
+      Utils.posFeedback(feedbackPersonal, "Your profile has been updated");
     }
   });
 });

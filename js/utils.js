@@ -8,6 +8,28 @@ export const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(
 // anchor regex
 export const regexAnchor = /<a[^>]*>(.*?)<\/a>/g;
 
+// url regex
+export const regexUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+
+/**
+ * checks if all true and enables the element
+ * @param {object} element element to be enabled|disabled
+ * @param  {...any} bools the values to be checked
+ */
+ export function checkForm(element, ...bools) {
+  let statusTrue = false;
+  let statusFalse = false;
+  for (let bool of bools) {
+    if (!bool) {
+      statusFalse = true;
+    } else {
+      statusTrue = true;
+    }
+  }
+  if (statusTrue && !statusFalse) element.disabled = false;
+  else element.disabled = true;
+}
+
 /**
  * print and changes the style for negative feedback
  * @param {object} el element to change

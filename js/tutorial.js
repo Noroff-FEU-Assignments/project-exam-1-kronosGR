@@ -16,7 +16,8 @@ const referrer = document.referrer;
 let backTitle = "";
 backTitleCont.setAttribute("href", referrer);
 if (referrer.includes("search")) backTitle = "Search";
-else backTitle = "Tutorials";
+else if (referrer.includes("tutorial")) backTitle = "Tutorials";
+else backTitle = "Home"
 backTitleCont.innerHTML = '<img src="/images/arrow-left.png" alt="back to tutorials" />'+ backTitle;
 
 closetBtn.addEventListener("click", () => {
