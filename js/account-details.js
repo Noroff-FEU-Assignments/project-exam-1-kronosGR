@@ -14,6 +14,8 @@ const passwordForm = document.querySelector("#password--form");
 const password = document.querySelector("#password");
 const password2 = document.querySelector("#password2");
 const feedbackPassword = document.querySelector("#feedback-password");
+const myComments = document.querySelector("#my-comments");
+const deleteLink = document.querySelector("#delete");
 
 const token = sessionStorage.getItem(Be.USER_TOKEN);
 const id = sessionStorage.getItem(Be.USER_ID);
@@ -115,3 +117,33 @@ passwordForm.addEventListener("submit", e => {
     }
   });
 });
+
+// show user comments
+Be.getCommentsByAuthor(token, id)
+  .then(res => {
+    if (res.ok){
+      const comments = res.data;
+      if (comments.length > 0) {
+        comments.forEach(comment => {
+          myComments.innerHTML += `
+          <div class="comment-container" id="comment${comment.id}">        
+            <div class="comment-text">
+               <span class="comment-date">${comment.date.replace("T", "  ")}</span>               
+              ${comment.content.rendered}
+            </div>
+              <div>
+                <a href="tutorial.html?id=${comment.post}" class="cta2">View</a>
+                <a href="${comment.id}" class="cta2" id="delete">Delete</a>
+              </div>
+          </div>`;
+        });
+      } else {
+        myCommentss.innerHTML = "<span class='msg-nothing'>No comments found</span>";
+      }
+    }
+  })
+
+  deleteLink.addEventListener("click", e => {
+    e.preventDefault
+    console.log(e.target)
+  })

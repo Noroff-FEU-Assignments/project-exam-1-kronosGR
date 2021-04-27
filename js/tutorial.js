@@ -103,6 +103,7 @@ comForm.addEventListener("submit", e => {
   e.preventDefault();
   postComment(sessionStorage.getItem(USER_TOKEN), id, comText.value).then(res => {
     if (res.ok) {
+      console.log(res)
       posFeedback(comFeedback, "Your comment has been posted.");
       getComments();
       comForm.reset();
@@ -120,7 +121,7 @@ function getComments() {
       if (comments.length > 0) {
         // print the posts
         comments.forEach(comment => {
-          commentLit.innerHTML += `<div class="comment-container">
+          commentLit.innerHTML += `<div class="comment-container" id="comment${comment.id}">
         <img src="${comment.author_avatar_urls["48"]}" alt="${comment.author_name}">
         <div class="comment-text">
           ${comment.content.rendered}
@@ -135,7 +136,7 @@ function getComments() {
         // show an message
         commentLit.innerHTML = "<span class='msg-nothing'>No comments found</span>";
       }
-    } else {
+    } else {r
       // something went bad
     }
   });

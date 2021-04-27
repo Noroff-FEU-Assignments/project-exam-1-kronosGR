@@ -6,6 +6,7 @@ const BE_TOKEN = "/jwt-auth/v1/token";
 const BE_USERS = "/wp/v2/users";
 const BE_CONTACT = "/contact-form-7/v1/contact-forms/44/feedback";
 const BE_COMMENT = "/wp/v2/comments?post=";
+const BE_COMMENTS = "/wp/v2/comments";
 
 export const USER_TOKEN = "user-token";
 export const USER_EMAIL = "user-email";
@@ -32,6 +33,28 @@ export function checkIfLoggedIn(el) {
   }
 }
 
+export async function getCommentsByAuthor(token, author){
+  try{
+    const res = await fetch(BE_URL + BE_COMMENTS , {
+      method: "GET",
+      headers:{
+        Authorization: "Bearer " + token,
+      },
+      redirect: "follow"
+    })
+    let json = await res.json();
+    let filtered = json.filter(com => com.author == author)
+    return createReturnFeed(res.ok, filtered);
+  } catch(e){
+    console.log(e)
+  }
+}
+
+/**
+ * get the comments for a post
+ * @param {int} postID 
+ * @returns data object
+ */
 export async function getCommentsForBlogPost(postID){
   try{
     const res = await fetch(BE_URL + BE_COMMENT + postID , {

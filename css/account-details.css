@@ -3,10 +3,11 @@
   justify-content: center;
   list-style-type: none;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .account-nav li{
-  margin: 0 10px;
+  margin: 5px 10px;
 }
 
 .account-nav a {
@@ -61,4 +62,21 @@ input:focus, textarea:focus{
 
 textarea{
   height: 50px;
+}
+
+.cta2{
+  display: block;
+  margin: 3px;
+  padding: 5px 10px;
+  border: 2px var(--blue) solid;
+  background-color: var(--blue);
+  color: white;
+  border-radius: 15% 0%;
+  text-decoration: none;
+  transition: var(--transition-dur);
+}
+
+.cta2:hover{
+  background-color: white;
+  color: var(--blue);
 }
