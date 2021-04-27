@@ -228,7 +228,7 @@ main {
 .left-big img, .right-big img{
   box-sizing: border-box;
   width: 100%;
-  padding: 0 1%;
+  padding: 0 10%;
 }
 
 .left-big:hover{
