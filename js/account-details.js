@@ -48,14 +48,14 @@ Be.getUserDetails(token, id).then(res => {
 });
 
 url.addEventListener("input", e => {
-  if (!Utils.regexUrl.test(url.value)){
-    Utils.showError(url, "It is not a valid url address")
+  if (!Utils.regexUrl.test(url.value)) {
+    Utils.showError(url, "It is not a valid url address");
     personalForm.querySelector("button").disabled = true;
   } else {
     Utils.hideError(url);
     personalForm.querySelector("button").disabled = false;
   }
-})
+});
 
 //update the personal information
 personalForm.addEventListener("submit", e => {
@@ -113,37 +113,64 @@ passwordForm.addEventListener("submit", e => {
     if (res.ok) {
       Utils.posFeedback(feedbackPassword, "Your password has been changed");
     } else {
-      console.log(res.data)
+      console.log(res.data);
     }
   });
 });
 
+getComments();
+
 // show user comments
-Be.getCommentsByAuthor(token, id)
-  .then(res => {
-    if (res.ok){
+function getComments() {
+  myComments.innerHTML = "";
+  Be.getCommentsByAuthor(token, id).then(res => {
+    if (res.ok) {
       const comments = res.data;
       if (comments.length > 0) {
         comments.forEach(comment => {
           myComments.innerHTML += `
-          <div class="comment-container" id="comment${comment.id}">        
-            <div class="comment-text">
-               <span class="comment-date">${comment.date.replace("T", "  ")}</span>               
-              ${comment.content.rendered}
-            </div>
-              <div>
-                <a href="tutorial.html?id=${comment.post}" class="cta2">View</a>
-                <a href="${comment.id}" class="cta2" id="delete">Delete</a>
+            <div class="comment-container" id="comment${comment.id}">        
+              <div class="comment-text">
+                 <span class="comment-date">${comment.date.replace(
+                   "T",
+                   "  "
+                 )}</span>               
+                ${comment.content.rendered}
               </div>
-          </div>`;
+                <div>
+                  <a href="tutorial.html?id=${comment.post}" class="cta2">View</a>
+                  <a href="" data-id="${comment.id}" class="cta2" id="delete">Delete</a>
+                </div>
+            </div>`;
         });
+        addEventsToAnchors();
       } else {
         myCommentss.innerHTML = "<span class='msg-nothing'>No comments found</span>";
       }
     }
-  })
+  });
+}
 
-  deleteLink.addEventListener("click", e => {
-    e.preventDefault
-    console.log(e.target)
-  })
+
+// add event listeners to delete buttons
+function addEventsToAnchors() {
+  const deleteAnchors = document.querySelectorAll("a[data-id]");
+  deleteAnchors.forEach(del => {
+    del.addEventListener("click", e => {
+      e.preventDefault();
+      const comID = e.target.getAttribute("data-id");
+      // delete the comment
+      Be.deleteComment(token, comID).then(res => {
+        if (res.ok) {
+          //refresh the list with comments
+          getComments();
+          Utils.showToastMsg("Comment removed");
+
+        } else {
+          // pop up window with message and timer
+          Utils.showToastMsg("There was a problem!");
+        }
+      });
+    });
+  });
+}

@@ -33,62 +33,84 @@ export function checkIfLoggedIn(el) {
   }
 }
 
-export async function getCommentsByAuthor(token, author){
-  try{
-    const res = await fetch(BE_URL + BE_COMMENTS , {
-      method: "GET",
-      headers:{
+/**  */
+export async function deleteComment(token, comID) {
+  try {
+    const res = await fetch(BE_URL + BE_COMMENTS + "/" + comID, {
+      method: "DELETE",
+      headers: {
         Authorization: "Bearer " + token,
       },
-      redirect: "follow"
-    })
+      redirect: "follow",
+    });
+    return createReturnFeed(res.ok, await res.json());
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+/**
+ * get the comments by user
+ * @param {string} token
+ * @param {id} author user id
+ * @returns an object with filtered results by author
+ */
+export async function getCommentsByAuthor(token, author) {
+  try {
+    const res = await fetch(BE_URL + BE_COMMENTS, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      redirect: "follow",
+    });
     let json = await res.json();
-    let filtered = json.filter(com => com.author == author)
+    let filtered = json.filter(com => com.author == author);
     return createReturnFeed(res.ok, filtered);
-  } catch(e){
-    console.log(e)
+  } catch (e) {
+    console.log(e);
   }
 }
 
 /**
  * get the comments for a post
- * @param {int} postID 
+ * @param {int} postID
  * @returns data object
  */
-export async function getCommentsForBlogPost(postID){
-  try{
-    const res = await fetch(BE_URL + BE_COMMENT + postID , {
+export async function getCommentsForBlogPost(postID) {
+  try {
+    const res = await fetch(BE_URL + BE_COMMENT + postID, {
       method: "GET",
-      redirect: "follow"
-    })
+      redirect: "follow",
+    });
     return createReturnFeed(res.ok, await res.json());
-  } catch(e){
-    console.log(e)
+  } catch (e) {
+    console.log(e);
   }
 }
 
 /**
  * post a comment to a blog post
- * @param {string} token 
+ * @param {string} token
  * @param {int} postID  post id
- * @param {string} comment 
+ * @param {string} comment
  * @returns return data object
  */
-export async function postComment(token, postID, comment){
-  try{
+export async function postComment(token, postID, comment) {
+  try {
     const res = await fetch(BE_URL + BE_COMMENT + postID, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + token,
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
       redirect: "follow",
       body: JSON.stringify({
-        content: comment
-      })
+        content: comment,
+      }),
     });
     return createReturnFeed(res.ok, await res.json());
-  } catch(e){
+  } catch (e) {
     console.log(e);
   }
 }

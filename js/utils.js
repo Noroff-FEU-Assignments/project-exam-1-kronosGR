@@ -1,4 +1,3 @@
-
 // html regex
 export const regexHTML = /(<([^>]+)>)/gi;
 
@@ -9,14 +8,43 @@ export const regexEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(
 export const regexAnchor = /<a[^>]*>(.*?)<\/a>/g;
 
 // url regex
-export const regexUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+export const regexUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+
+/**
+ * shows a toast message at the bottom of the screen and disappears after
+ * 3 secs. Better than having a div for feedback on every page
+ * @param {string} msg message
+ */
+export function showToastMsg(msg) {
+  const toast = document.createElement("div");
+  toast.classList.add("toast")
+  toast.style.cssText=`
+    box-sizing: border-box;
+    position: fixed;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+    left:0;
+    padding: 20px;
+    background-color: var(--blue);
+    color: white;
+    text-align: center;
+    overflow-wrap: break-word;   
+  `;
+  toast.innerHTML = msg;
+  document.body.appendChild(toast);
+  setTimeout(()=>{
+    const tst = document.querySelector(".toast");
+    tst.parentNode.removeChild(tst);
+  }, 3000)
+}
 
 /**
  * checks if all true and enables the element
  * @param {object} element element to be enabled|disabled
  * @param  {...any} bools the values to be checked
  */
- export function checkForm(element, ...bools) {
+export function checkForm(element, ...bools) {
   let statusTrue = false;
   let statusFalse = false;
   for (let bool of bools) {
@@ -35,7 +63,7 @@ export const regexUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA
  * @param {object} el element to change
  * @param {string} msg message to be printed
  */
-export function negFeedback(el, msg){
+export function negFeedback(el, msg) {
   el.style.color = "red";
   el.style.fontStyle = "italic";
   el.innerHTML = msg;
@@ -46,7 +74,7 @@ export function negFeedback(el, msg){
  * @param {object} el element to change
  * @param {string} msg message to be printed
  */
-export function posFeedback(el, msg){
+export function posFeedback(el, msg) {
   el.style.color = "green";
   el.style.fontStyle = "italic";
   el.innerHTML = msg;
@@ -56,7 +84,7 @@ export function posFeedback(el, msg){
  * hide the error message
  * @param {object} el the element to be changed
  */
-export function hideError(el){
+export function hideError(el) {
   if (el.parentNode.contains(el.parentNode.querySelector("span")))
     el.parentNode.removeChild(el.previousSibling);
 }
@@ -65,13 +93,12 @@ export function hideError(el){
  * Show an error message
  * @param {object} el the element to be changed
  */
-export function showError(el, msg){
-  if (!el.parentNode.contains(el.parentNode.querySelector("span"))){
+export function showError(el, msg) {
+  if (!el.parentNode.contains(el.parentNode.querySelector("span"))) {
     const error = document.createElement("span");
     error.innerHTML = msg;
     error.classList.add("error");
     el.parentNode.insertBefore(error, el);
-
   }
 }
 
