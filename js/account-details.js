@@ -145,7 +145,7 @@ function getComments() {
         });
         addEventsToAnchors();
       } else {
-        myCommentss.innerHTML = "<span class='msg-nothing'>No comments found</span>";
+        myComments.innerHTML = "<span class='msg-nothing'>No comments found</span>";
       }
     }
   });

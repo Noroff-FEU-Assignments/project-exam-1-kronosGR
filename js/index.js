@@ -74,7 +74,6 @@ circle3.addEventListener("click", () => {
   checkTheCircles();
 });
 window.addEventListener("resize", () => {
-  console.log("a");
   adjustSize();
 });
 

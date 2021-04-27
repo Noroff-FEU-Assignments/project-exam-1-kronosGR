@@ -78,7 +78,6 @@ message.addEventListener("input", e => {
 contactForm.addEventListener("submit", e => {
   e.preventDefault();
   Be.sendMessage(username.value, email.value, subject.value, message.value).then(res => {
-    console.log(res)
     if (res.ok) {
       Utils.posFeedback(log, res.data.message);
       contactForm.reset();
