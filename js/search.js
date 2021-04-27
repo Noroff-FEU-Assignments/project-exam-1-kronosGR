@@ -20,33 +20,39 @@ document
 
 fillResults();
 
-
 checkIfLoggedIn(document.querySelector(".account-image"));
 
 async function fillResults() {
   searchPostsWithTotal(searchFor, "desc", page, pageSize)
-    .then((res) => {
+    .then(res => {
       totalPages = Number(res.headers.get("x-wp-totalPages"));
+      if (totalPages == 0) page = 0;
       showPaging(tutorialsPaging, page, totalPages, "search.html");
       return res.json();
     })
-    .then((json) => {
-      getMedia(json).then((res) => {
-        res.forEach((post) => {
-          const tutItem = document.createElement("div");
-          tutItem.classList.add("tutorial-item");
+    .then(json => {
+      if (json.length > 0) {
+        getMedia(json).then(res => {
+          res.forEach(post => {
+            const tutItem = document.createElement("div");
+            tutItem.classList.add("tutorial-item");
 
-          tutItem.innerHTML = `
-          <div class="search-item-container">
+            tutItem.innerHTML = `
+            <div class="search-item-container">
             <img src="${post.thumb}" alt=${post.title}" class="search--thumb">
             <h3>${post.title}</h3>
-          </div>
+            </div>
             <a href="tutorial.html?id=${post.id}" class="cta">Read</a>
             `;
 
-          tutorialsList.appendChild(tutItem);
+            tutorialsList.appendChild(tutItem);
+          });
         });
-      });
+      } else {
+        tutorialsList.innerHTML = `
+         <span class='msg-nothing'>No items found</span>
+        `;
+      }
     });
 }
 
@@ -55,8 +61,8 @@ async function fillResults() {
  * @returns An array
  */
 async function getMedia(res) {
-  let results = res.map((post) => {
-    return getPostWithId(post.id).then((pos) => {
+  let results = res.map(post => {
+    return getPostWithId(post.id).then(pos => {
       const thumb = pos.featured_media_src_url;
       const title = pos.title.rendered;
       const postId = pos.id;

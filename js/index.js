@@ -1,7 +1,7 @@
 import { fetchAllPosts, fetchMediaWithUrl, checkIfLoggedIn } from "/js/be.js";
 
 const carousel = document.querySelector(".carousel");
-const carouselInner = document.querySelector(".car-inner");
+const carouselInner = document.querySelector(".carousel-inner");
 const next = document.querySelector("#next");
 const previous = document.querySelector("#previous");
 const circle1 = document.querySelector("#circle1");
@@ -37,40 +37,48 @@ prevDiv.addEventListener("click", () => {
 
 function moveToPrev() {
   if (moving) return;
+
   moving = true;
   page = page > 1 ? (page -= 1) : 1;
-  const childWidth = carousel.offsetWidth - (carousel.offsetWidth / 100) * 5;
+  const childWidth = document.querySelector(".page-item").offsetWidth;
+  let toMove = 0;
+  switch(page){
+    case 3,2:
+      toMove = childWidth * 2 + (childWidth * 2*0.04);
+      break;
+    case 1:
+      toMove = childWidth * 3
+  }
+  console.log(toMove)
   carouselInner.scrollBy({
     top: 0,
-    left: -childWidth,
+    left: -toMove,
     behavior: "smooth",
   });
   checkTheCircles();
-  if (page == 1)
-    carouselInner.scrollBy({
-      top: 0,
-      left: -childWidth * 3,
-      behavior: "smooth",
-    });
+
 }
 
 function moveToNext() {
   if (moving) return;
+
   moving = true;
   page = page < 3 ? (page += 1) : 3;
-  const childWidth = carousel.offsetWidth - (carousel.offsetWidth / 100) * 4;
+  const childWidth = document.querySelector(".page-item").offsetWidth;
+  let toMove = 0;
+  switch(page){
+    case 1,2:
+      toMove = childWidth * 2 + (childWidth * 2*0.03);
+      break;
+    case 3:
+      toMove = childWidth * 3
+  }
   carouselInner.scrollBy({
     top: 0,
-    left: childWidth,
+    left: toMove,
     behavior: "smooth",
   });
   checkTheCircles();
-  if (page == 3)
-    carouselInner.scrollBy({
-      top: 0,
-      left: childWidth * 3,
-      behavior: "smooth",
-    });
 }
 
 circle1.addEventListener("click", () => {
@@ -88,12 +96,12 @@ circle1.addEventListener("click", () => {
 circle2.addEventListener("click", () => {
   if (moving) return;
   moving = true;
-  const childWidth = carouselInner.offsetWidth;
+  const childWidth = document.querySelector(".page-item").offsetWidth;
   let offset = 0;
   if (page == 1) {
-    offset = childWidth - (carousel.offsetWidth / 100) * 3;
+    offset = childWidth * 2 + (childWidth * 2*0.04);
   } else if (page == 3) {
-    offset = -childWidth + (carousel.offsetWidth / 100) * 4;
+    offset = -childWidth * 2-  (childWidth * 2*0.04);
   }
 
   page = 2;
@@ -137,7 +145,7 @@ function showCarousel() {
   carouselInner.appendChild(printCarouselPages(1, posts));
   carouselInner.appendChild(printCarouselPages(2, posts));
   carouselInner.appendChild(printCarouselPages(3, posts));
-  carouselInner.innerHTML += "<div class='after'></div>";
+  // carouselInner.innerHTML += "<div class='after'></div>";
   adjustSize();
 }
 
@@ -146,9 +154,9 @@ function showCarousel() {
  */
 function adjustSize() {
   const childWidth = carousel.offsetWidth;
-  const children = document.querySelectorAll(".carousel-item");
+  const children = document.querySelectorAll(".page-item");
   children.forEach(child => {
-    child.style.width = childWidth / 16 / 2.1 + "rem";
+    child.style.width = childWidth / 2 * 0.96 + "px";
   });
   circle1.click();
 }
@@ -165,10 +173,10 @@ function printCarouselPages(pag, arr) {
 
   const p = document.createElement("div");
   p.id = "page" + pag;
-  p.classList.add("carousel-child");
+  p.classList.add("carousel-page");
   for (let i = start; i < start + pageSize; i++) {
     p.innerHTML += `
-    <a href="tutorial.html?id=${arr[i].id}" class="carousel-item">
+    <a href="tutorial.html?id=${arr[i].id}" class="page-item">
       <img src=${arr[i].thumb} alt="${arr[i].title}">
       <div>
         <h2>${arr[i].title}</h2>
@@ -240,5 +248,6 @@ async function fillStartLearning() {
     `;
 
     learningList.appendChild(learningItem);
+    adjustSize();
   });
 }

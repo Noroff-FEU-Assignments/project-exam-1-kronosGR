@@ -148,6 +148,7 @@ function getComments() {
         myComments.innerHTML = "<span class='msg-nothing'>No comments found</span>";
       }
     }
+    myComments.innerHTML+='<a href="#top" class="to-top">Top</a>';
   });
 }
 
@@ -164,11 +165,11 @@ function addEventsToAnchors() {
         if (res.ok) {
           //refresh the list with comments
           getComments();
-          Utils.showToastMsg("Comment removed");
+          Utils.showToastMsg("Comment removed", Utils.TOAST_MESSAGE);
 
         } else {
           // pop up window with message and timer
-          Utils.showToastMsg("There was a problem!");
+          Utils.showToastMsg("There was a problem!", Utils.TOAST_ERROR);
         }
       });
     });

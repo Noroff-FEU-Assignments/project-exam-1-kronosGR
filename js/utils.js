@@ -10,15 +10,21 @@ export const regexAnchor = /<a[^>]*>(.*?)<\/a>/g;
 // url regex
 export const regexUrl = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
+// constants for the shotToastMsg
+export const TOAST_ERROR = 0;
+export const TOAST_MESSAGE = 1;
 /**
  * shows a toast message at the bottom of the screen and disappears after
  * 3 secs. Better than having a div for feedback on every page
  * @param {string} msg message
  */
-export function showToastMsg(msg) {
+export function showToastMsg(msg, type) {
+  let color;
+  if (type == 0) color = "red";
+  if (type == 1) color = "var(--blue)";
   const toast = document.createElement("div");
-  toast.classList.add("toast")
-  toast.style.cssText=`
+  toast.classList.add("toast");
+  toast.style.cssText = `
     box-sizing: border-box;
     position: fixed;
     width: 100%;
@@ -26,17 +32,17 @@ export function showToastMsg(msg) {
     bottom: 0;
     left:0;
     padding: 20px;
-    background-color: var(--blue);
+    background-color: ${color};
     color: white;
     text-align: center;
     overflow-wrap: break-word;   
   `;
   toast.innerHTML = msg;
   document.body.appendChild(toast);
-  setTimeout(()=>{
+  setTimeout(() => {
     const tst = document.querySelector(".toast");
     tst.parentNode.removeChild(tst);
-  }, 3000)
+  }, 3000);
 }
 
 /**
