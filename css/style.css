@@ -207,6 +207,51 @@ main {
   padding-top: 10px;
 }
 
+.main{
+  display: flex;
+  position: relative;
+}
+
+.left-big{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 1%;
+  top: 5%;
+  border: 1px var(--gray-dark) solid;
+  width: 3%;
+  height: 89%;
+  background-color: white;
+  z-index: 2;
+}
+
+.left-big img, .right-big img{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 1%;
+}
+
+.left-big:hover{
+  background-color: var(--gray);
+}
+
+.right-big{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  right: 1%;
+  top: 5%;
+  border: 1px var(--gray-dark) solid;
+  width: 3%;
+  height: 89%;
+  background-color: white;
+  z-index: 2;
+}
+
+.right-big:hover{
+  background-color: var(--gray);
+}
+
 .car-nav {
   width: 50%;
   margin: 0 auto;
@@ -220,6 +265,7 @@ main {
 }
 
 .carousel {
+  transform-style: preserve-3d;
   margin: 10px auto;
   width: 95%;
   border: var(--gray-dark) 1px solid;
