@@ -119,3 +119,10 @@ p:last-child {
 .empty{
   padding: 10%;
 }
+
+.to-top{
+  position: relative;
+  left: 40%;
+  bottom: 5px;
+  color: var(--blue)
+}
