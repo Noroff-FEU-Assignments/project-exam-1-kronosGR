@@ -38,9 +38,9 @@ h2 {
 a {
   font-style: italic;
   font-weight: bold;
-} 
+}
 
-a:hover{
+a:hover {
   text-decoration: underline;
 }
 
@@ -62,6 +62,12 @@ a:hover{
   padding: 30px;
   font-style: italic;
   color: var(--blue);
+}
+
+.selected {
+  background-color: var(--blue);
+  color: white;
+  padding: 1px 7px;
 }
 
 /* header */
@@ -403,7 +409,6 @@ footer a {
 }
 
 @media screen and (min-width: 600px) {
-
   .wrapper {
     width: 80%;
     margin: 0 auto;
@@ -427,7 +432,7 @@ footer a {
     display: none;
   }
 
-  nav a{
+  nav a {
     margin: 0 10px;
   }
   nav {
@@ -440,7 +445,7 @@ footer a {
     height: auto;
   }
 
-  .fixed{
+  .fixed {
     width: 80%;
   }
 
@@ -470,12 +475,11 @@ footer a {
 }
 
 @media screen and (min-width: 960px) {
-
   :root {
     font-size: 17px;
   }
 
-  main{
+  main {
     max-width: 800px;
   }
 
@@ -500,31 +504,32 @@ footer a {
     max-width: 1100px;
   }
 
-  .fixed{
+  .fixed {
     width: 70%;
     max-width: 1100px;
   }
 
-  .page-item{
+  .page-item {
     height: 170px;
   }
 
-  .page-item img{
+  .page-item img {
     width: 130px;
   }
 
-  .carousel, .carousel-inner{
+  .carousel,
+  .carousel-inner {
     height: 390px;
   }
 
-  .left-big, .right-big{
-   top: 4%;
-   height: 92%; 
+  .left-big,
+  .right-big {
+    top: 4%;
+    height: 92%;
   }
-  
 }
 
-@media screen and (min-width:1600px){
+@media screen and (min-width: 1600px) {
   header section > nav {
     margin-left: -550px;
     left: 50%;
