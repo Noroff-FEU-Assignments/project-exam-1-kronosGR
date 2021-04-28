@@ -1,12 +1,27 @@
-.search--thumb{
+.search--thumb {
   height: 40px;
 }
 
-.search-item-container{
+.search-item-container {
   display: flex;
-  align-items: center;  
+  align-items: center;
 }
 
-.search-item-container > h3{
+.search-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-item-container > h3 {
   margin-left: 10px;
+}
+
+.search-item {
+  text-align: left;
+  padding: 10px;
+  margin: 15px 5px;
+  border: 1px var(--gray) solid;
+  border-radius: 10px 10px;
+  box-shadow: 5px 5px 10px var(--gray);
 }

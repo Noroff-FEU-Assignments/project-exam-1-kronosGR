@@ -2,7 +2,7 @@ import { searchPostsWithTotal, getPostWithId, checkIfLoggedIn } from "./be.js";
 import { showPaging } from "./utils.js";
 
 const tutorialsPaging = document.querySelector("#tutorials-paging");
-const tutorialsList = document.querySelector(".tutorials-list");
+const searchList = document.querySelector(".search-list");
 const pageHeading = document.querySelector("main > h1");
 
 const params = new URLSearchParams(window.location.search);
@@ -34,22 +34,22 @@ async function fillResults() {
       if (json.length > 0) {
         getMedia(json).then(res => {
           res.forEach(post => {
-            const tutItem = document.createElement("div");
-            tutItem.classList.add("tutorial-item");
+            const searItem = document.createElement("div");
+            searItem.classList.add("search-item");
 
-            tutItem.innerHTML = `
+            searItem.innerHTML = `
             <div class="search-item-container">
             <img src="${post.thumb}" alt=${post.title}" class="search--thumb">
             <h3>${post.title}</h3>
             </div>
-            <a href="tutorial.html?id=${post.id}" class="cta">Read</a>
+            <a href="tutorial.html?id=${post.id}" class="cta2">Read</a>
             `;
 
-            tutorialsList.appendChild(tutItem);
+            searchList.appendChild(searItem);
           });
         });
       } else {
-        tutorialsList.innerHTML = `
+        searchList.innerHTML = `
          <span class='msg-nothing'>No items found</span>
         `;
       }

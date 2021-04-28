@@ -57,7 +57,7 @@ export async function deleteComment(token, comID) {
  */
 export async function getCommentsByAuthor(token, author) {
   try {
-    const res = await fetch(BE_URL + BE_COMMENTS, {
+    const res = await fetch(BE_URL + BE_COMMENTS + "?per_page=100", {
       method: "GET",
       headers: {
         Authorization: "Bearer " + token,

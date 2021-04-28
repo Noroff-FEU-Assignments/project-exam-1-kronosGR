@@ -120,44 +120,11 @@ passwordForm.addEventListener("submit", e => {
 
 getComments();
 
-// show user comments
-function getComments() {
-  myComments.innerHTML = "";
-  Be.getCommentsByAuthor(token, id).then(res => {
-    if (res.ok) {
-      const comments = res.data;
-      if (comments.length > 0) {
-        comments.forEach(comment => {
-          myComments.innerHTML += `
-            <div class="comment-container" id="comment${comment.id}">        
-              <div class="comment-text">
-                 <span class="comment-date">${comment.date.replace(
-                   "T",
-                   "  "
-                 )}</span>               
-                ${comment.content.rendered}
-              </div>
-                <div>
-                  <a href="tutorial.html?id=${comment.post}" class="cta2">View</a>
-                  <a href="" data-id="${comment.id}" class="cta2" id="delete">Delete</a>
-                </div>
-            </div>`;
-        });
-        addEventsToAnchors();
-      } else {
-        myComments.innerHTML = "<span class='msg-nothing'>No comments found</span>";
-      }
-    }
-    myComments.innerHTML+='<a href="#top" class="to-top">Top</a>';
-  });
-}
-
-
 // add event listeners to delete buttons
 function addEventsToAnchors() {
   const deleteAnchors = document.querySelectorAll("a[data-id]");
   deleteAnchors.forEach(del => {
-    del.addEventListener("click", e => {
+    del.addEventListener('click', function(e) {
       e.preventDefault();
       const comID = e.target.getAttribute("data-id");
       // delete the comment
@@ -166,7 +133,6 @@ function addEventsToAnchors() {
           //refresh the list with comments
           getComments();
           Utils.showToastMsg("Comment removed", Utils.TOAST_MESSAGE);
-
         } else {
           // pop up window with message and timer
           Utils.showToastMsg("There was a problem!", Utils.TOAST_ERROR);
@@ -175,3 +141,36 @@ function addEventsToAnchors() {
     });
   });
 }
+
+// show user comments
+async function getComments() {
+  myComments.innerHTML = "";
+  await Be.getCommentsByAuthor(token, id).then(res => {
+    if (res.ok) {
+      const comments = res.data;
+      if (comments.length > 0) {
+        comments.forEach(comment => {
+          myComments.innerHTML += `
+          <div class="comment-container" id="comment${comment.id}">        
+          <div class="comment-text">
+          <span class="comment-date">${comment.date.replace(
+            "T",
+            "  "
+            )}</span>               
+            ${comment.content.rendered}
+            </div>
+            <div>
+            <a href="tutorial.html?id=${comment.post}" class="cta2">View</a>
+            <a href="" data-id="${comment.id}" class="cta2" >Delete</a>
+            </div>
+            </div>`;
+          });
+        } else {
+          myComments.innerHTML = "<span class='msg-nothing'>No comments found</span>";
+        }
+      }
+      myComments.innerHTML += '<a href="#top" class="to-top">Top</a>';
+    });
+    addEventsToAnchors();
+}
+
