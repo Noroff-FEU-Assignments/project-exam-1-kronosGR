@@ -25,6 +25,11 @@
   padding: 15px;
   box-shadow: var(--shadow-def);
   margin-bottom: 20px;
+  text-align: left;
+}
+
+.tutorial-content p{
+  margin-bottom: 10px;
 }
 
 .tutorial--img {

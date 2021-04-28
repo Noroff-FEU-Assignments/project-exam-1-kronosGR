@@ -77,7 +77,7 @@
         <form method="GET" id="login--form">
           <label for="log-username">
             Username
-            <input
+            <input  placeholder="Your username"
               type="text"
               name="log-username"
               id="log-username"
@@ -87,7 +87,7 @@
           </label>
           <label for="reg-password">
             Password
-            <input
+            <input  placeholder="Your password"
               title="Password"
               type="password"
               name="log-password"
@@ -109,15 +109,15 @@
           <form method="GET" id="registration--form">
             <label for="reg-username">
               Username
-              <input type="text" name="reg-username" id="reg-username" required />
+              <input placeholder="Minimum 3 characters" type="text" name="reg-username" id="reg-username" required />
             </label>
             <label for="reg-email">
               Email
-              <input type="email" name="reg-email" id="reg-email" required />
+              <input placeholder="A valid email address " type="email" name="reg-email" id="reg-email" required />
             </label>
             <label for="reg-password">
               Password
-              <input
+              <input placeholder="Minimum 6 characters"
                 type="password"
                 name="reg-password"
                 id="reg-password"
@@ -127,7 +127,7 @@
             </label>
             <label for="reg-password2">
               Password again
-              <input type="password" name="reg-password2" id="reg-password2" required />
+              <input placeholder="Same password as above" type="password" name="reg-password2" id="reg-password2" required />
             </label>
             <p id="reg-error"></p>
             <button type="submit" disabled>Register</button>

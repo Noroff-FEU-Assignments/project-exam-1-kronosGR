@@ -70,19 +70,19 @@
         <form method="GET" id="contact--form">
           <label for="usermame">
             Name
-            <input type="text" name="username" id="username" title="Name" required />
+            <input placeholder="Minimum 5 characters" type="text" name="username" id="username" title="Name" required />
           </label>
           <label for="email">
             Email
-            <input type="email" name="email" id="email" required />
+            <input placeholder="A valid email address" type="email" name="email" id="email" required />
           </label>
           <label for="subject">
             Subject
-            <input type="text" name="subject" id="subject" required />
+            <input placeholder="Minimum 15 characters" type="text" name="subject" id="subject" required />
           </label>
           <label for="message">
             Message
-            <textarea name="message" id="message" required></textarea>
+            <textarea placeholder="Minimum 25 characters" name="message" id="message" required></textarea>
           </label>
           <button type="submit" disabled>Send</button>
           <p id="log-error"></p>
