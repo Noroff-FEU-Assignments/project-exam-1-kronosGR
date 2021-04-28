@@ -1,4 +1,5 @@
 import { fetchAllPosts, fetchMediaWithUrl, checkIfLoggedIn } from "/js/be.js";
+import { showToastMsg, TOAST_MESSAGE } from "./utils.js";
 
 const carousel = document.querySelector(".carousel");
 const carouselInner = document.querySelector(".carousel-inner");
@@ -10,14 +11,39 @@ const circle3 = document.querySelector("#circle3");
 const learningList = document.querySelector(".learning-list");
 const prevDiv = document.querySelector(".left-big");
 const nextDiv = document.querySelector(".right-big");
+const autoplayEl = document.querySelector(".autoplay");
 
 var page = 1;
 let res;
 let posts;
 // carousel animation
 let moving = false;
+let autoplay = true;
 
 checkIfLoggedIn(document.querySelector(".account-image"));
+
+// Auto cycle carousel
+setInterval(automaticMovement, 3000);
+
+function automaticMovement() {
+  if (!autoplay) return;
+  if (page < 3) moveToNext();
+  if (page == 3) {
+    circle1.click();
+  }
+}
+
+autoplayEl.addEventListener("click", () => {
+  if (autoplay) {
+    autoplay = false;
+    autoplayEl.src = "/images/autoplay.png";
+    showToastMsg("Carousel autoplay disabled", TOAST_MESSAGE);
+  } else {
+    autoplay = true;
+    autoplayEl.src = "/images/autoplay-enabled.png";
+    showToastMsg("Carousel autoplay disabled", TOAST_MESSAGE);
+  }
+});
 
 next.addEventListener("click", e => {
   moveToNext();
@@ -42,21 +68,20 @@ function moveToPrev() {
   page = page > 1 ? (page -= 1) : 1;
   const childWidth = document.querySelector(".page-item").offsetWidth;
   let toMove = 0;
-  switch(page){
-    case 3,2:
-      toMove = childWidth * 2 + (childWidth * 2*0.04);
+  switch (page) {
+    case (3, 2):
+      toMove = childWidth * 2 + childWidth * 2 * 0.04;
       break;
     case 1:
-      toMove = childWidth * 3
+      toMove = childWidth * 3;
   }
-  console.log(toMove)
+  console.log(toMove);
   carouselInner.scrollBy({
     top: 0,
     left: -toMove,
     behavior: "smooth",
   });
   checkTheCircles();
-
 }
 
 function moveToNext() {
@@ -66,12 +91,12 @@ function moveToNext() {
   page = page < 3 ? (page += 1) : 3;
   const childWidth = document.querySelector(".page-item").offsetWidth;
   let toMove = 0;
-  switch(page){
-    case 1,2:
-      toMove = childWidth * 2 + (childWidth * 2*0.03);
+  switch (page) {
+    case (1, 2):
+      toMove = childWidth * 2 + childWidth * 2 * 0.03;
       break;
     case 3:
-      toMove = childWidth * 3
+      toMove = childWidth * 3;
   }
   carouselInner.scrollBy({
     top: 0,
@@ -99,9 +124,9 @@ circle2.addEventListener("click", () => {
   const childWidth = document.querySelector(".page-item").offsetWidth;
   let offset = 0;
   if (page == 1) {
-    offset = childWidth * 2 + (childWidth * 2*0.04);
+    offset = childWidth * 2 + childWidth * 2 * 0.04;
   } else if (page == 3) {
-    offset = -childWidth * 2-  (childWidth * 2*0.04);
+    offset = -childWidth * 2 - childWidth * 2 * 0.04;
   }
 
   page = 2;
@@ -156,7 +181,7 @@ function adjustSize() {
   const childWidth = carousel.offsetWidth;
   const children = document.querySelectorAll(".page-item");
   children.forEach(child => {
-    child.style.width = childWidth / 2 * 0.96 + "px";
+    child.style.width = (childWidth / 2) * 0.96 + "px";
   });
   circle1.click();
 }

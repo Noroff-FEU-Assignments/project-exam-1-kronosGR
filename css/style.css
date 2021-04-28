@@ -271,6 +271,14 @@ main {
   justify-content: center;
 }
 
+.autoplay{
+  width: 40px;
+}
+
+.autoplay:hover{
+  background-color: var(--gray);
+}
+
 .carousel-nav img {
   height: 15px;
   margin: 10px;
