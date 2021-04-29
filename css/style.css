@@ -225,6 +225,10 @@ main {
   padding-top: 10px;
 }
 
+main > p{
+  margin-bottom: 10px;
+}
+
 .main {
   display: flex;
   position: relative;
@@ -234,11 +238,10 @@ main {
   position: absolute;
   display: flex;
   align-items: center;
-  left: 1%;
-  top: 5%;
+  left: 0%;
   border: 1px var(--gray-dark) solid;
   width: 3%;
-  height: 89%;
+  height: 100%;
   background-color: white;
   z-index: 2;
 }
@@ -258,11 +261,10 @@ main {
   position: absolute;
   display: flex;
   align-items: center;
-  right: 1%;
-  top: 5%;
+  right: 0%;
   border: 1px var(--gray-dark) solid;
   width: 3%;
-  height: 89%;
+  height: 100%;
   background-color: white;
   z-index: 2;
 }
@@ -280,6 +282,7 @@ main {
 
 .autoplay {
   width: 40px;
+  margin-top: 10px;
 }
 
 .autoplay:hover {
@@ -293,10 +296,9 @@ main {
 
 .carousel {
   transform-style: preserve-3d;
-  margin: 10px auto;
+  margin: 0px auto;
   width: 95%;
   border: var(--gray-dark) 1px solid;
-  border-radius: var(--radius-def);
   box-shadow: var(--shadow-def);
   overflow: hidden;
   box-sizing: border-box;
@@ -315,7 +317,6 @@ main {
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  row-gap: 15px;
   column-gap: 10px;
   margin: 0 5px;
 }
@@ -332,8 +333,12 @@ main {
 
 .page-item img {
   width: 100%;
-  height: 100%;
   object-fit: cover;
+}
+
+.page-item img:hover{
+  transition: 2s;
+  transform: rotateY(270deg);
 }
 
 .after {
@@ -341,8 +346,9 @@ main {
   width: 100px;
 }
 
-.page-item:hover {
-  background-color: var(--gray);
+.page-item div:hover {
+  background-color: white;
+  color:var(--blue);
 }
 
 .page-item div {
@@ -525,20 +531,12 @@ footer a {
     max-width: 1100px;
   }
 
-  .page-item {
-    height: 170px;
-  }
 
   .carousel,
   .carousel-inner {
     height: 390px;
   }
 
-  .left-big,
-  .right-big {
-    top: 4%;
-    height: 92%;
-  }
 }
 
 @media screen and (min-width: 1600px) {

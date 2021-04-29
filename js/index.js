@@ -150,6 +150,7 @@ circle3.addEventListener("click", () => {
   checkTheCircles();
 });
 window.addEventListener("resize", () => {
+  showCarousel();
   adjustSize();
 });
 
@@ -177,7 +178,6 @@ function showCarousel() {
   carouselInner.appendChild(printCarouselPages(2, posts));
   carouselInner.appendChild(printCarouselPages(3, posts));
   // carouselInner.innerHTML += "<div class='after'></div>";
-  adjustSize();
 }
 
 /**
@@ -185,6 +185,8 @@ function showCarousel() {
  */
 function adjustSize() {
   const childWidth = carousel.offsetWidth;
+  carousel.style.height = childWidth+"px";  
+  carouselInner.style.height = childWidth+"px";  
   const children = document.querySelectorAll(".page-item");
   children.forEach(child => {
     child.style.width = (childWidth / 2) * 0.96 + "px";
@@ -202,12 +204,15 @@ function printCarouselPages(pag, arr) {
   const pageSize = 4;
   let start = 0 + (pag * pageSize - pageSize);
 
+  let size = carouselInner.offsetWidth /2
+
   const p = document.createElement("div");
   p.id = "page" + pag;
   p.classList.add("carousel-page");
   for (let i = start; i < start + pageSize; i++) {
     p.innerHTML += `
-    <a href="tutorial.html?id=${arr[i].id}" class="page-item">
+    <a href="tutorial.html?id=${arr[i].id}" class="page-item"
+      style="display:block;width:${size};height:${size * 0.96}px;">
       <img src=${arr[i].thumb} alt="${arr[i].title}" >
       <div>
         <h2>${arr[i].title}</h2>
@@ -224,8 +229,8 @@ function printCarouselPages(pag, arr) {
  */
 async function getMedia() {
   let results = res.map(post => {
-    return fetchMediaWithUrl(post["_links"]["wp:featuredmedia"][0].href).then(images => {
-      const thumb = images["media_details"].sizes.medium.source_url ;
+    return fetchMediaWithUrl(post["_links"]["wp:featuredmedia"][0].href).then(images => {      
+      const thumb = images["media_details"].sizes.thumbnail.source_url ;
       const title = post.title.rendered;
       const postId = post.id;
       return { title: title, thumb: thumb, id: postId };
@@ -271,7 +276,6 @@ async function fillStartLearning() {
   learningPosts.forEach(post => {
     const learningItem = document.createElement("div");
     learningItem.classList.add("learning-item");
-
     let shortDesc = post.content.rendered.substring(0, 100) + "...";
     learningItem.innerHTML = `<h3>${post.title.rendered}</h3>
     <p>${shortDesc}</p><br><br>
