@@ -120,6 +120,21 @@ export async function postComment(token, postID, comment) {
   }
 }
 
+export async function getUserDetails2(id) {
+  try {
+    const res = await fetch(BE_URL + BE_USERS + `/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+      },
+      redirect: "follow",
+    });
+    return createReturnFeed(res.ok, await res.json());
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 /**
  * get user info
  * @param {string} token

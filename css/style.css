@@ -391,11 +391,19 @@ main > p{
 .learning-item {
   position: relative;
   text-align: left;
+  display: flex;
+  align-items: flex-start;
   padding: 10px;
   margin: 10px 5px;
   border: 1px var(--gray) solid;
   border-radius: 10px 10px;
   box-shadow: var(--shadow-def);
+}
+
+.learning-item img{
+  width: 100px;
+  margin-right: 10px;
+  object-fit: contain;
 }
 
 .cta {
@@ -414,6 +422,33 @@ main > p{
 .cta:hover {
   background-color: white;
   color: var(--blue);
+}
+
+.info--div{
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.info--div div{
+  display: flex;
+  align-items: center;
+}
+
+.author{
+  color: var(--blue);
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+.author--img{
+  border-radius: 50%;
+}
+
+#date{
+  font-size: 0.7rem;
+  margin: 0;
 }
 
 /* Footer */

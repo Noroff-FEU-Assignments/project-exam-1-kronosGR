@@ -4,6 +4,7 @@ import {
   USER_TOKEN,
   getCommentsForBlogPost,
   postComment,
+  getUserDetails2
 } from "./be.js";
 import {
   regexHTML,
@@ -29,9 +30,15 @@ const comText = document.querySelector("#comment");
 const comBtn = document.querySelector("#comment--form button");
 const comFeedback = document.querySelector("#com-feedback");
 const commentLit = document.querySelector("#comment-list");
+const author = document.querySelector('.author');
+const authorImg = document.querySelector('.author--img');
+const time = document.querySelector('#date')
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
+
+let authorID = 0;
+let postDate;
 
 // check the referrer and change the back link title
 const referrer = document.referrer;
@@ -64,10 +71,13 @@ getComments();
 async function fillThePage() {
   try {
     const post = await getPostWithId(id);
-
     const title = post.title.rendered;
     const text = post.content.rendered;
     const imgUrl = post.featured_media_src_url;
+
+    postDate = post.date.replace("T", " ");
+    time.innerHTML = " on " +postDate;
+    authorID = post.author;
 
     // set document title
     document.title = "JS World | Tutorial | " + title;
@@ -96,6 +106,8 @@ async function fillThePage() {
     img.addEventListener("click", () => {
       modalWindow.classList.add("modal-window-show");
     });
+
+    getAuthor();
   } catch (e) {
     console.log(e);
     showToastMsg("We are sorry something went wrong", TOAST_ERROR);
@@ -162,4 +174,21 @@ function getComments() {
       console.log(e);
       showToastMsg("We are sorry something went wrong", TOAST_ERROR);
     });
+}
+
+
+// get author details
+function getAuthor(){
+  getUserDetails2( authorID)
+  .then(res => {
+    if (res.ok){
+      authorImg.src = res.data.avatar_urls["48"];
+      authorImg.setAttribute("alt", res.data.name);
+      author.innerHTML = res.data.name
+    }
+  }) 
+  .catch(e => {
+    console.log(e)
+    showToastMsg("Show went wrong", TOAST_ERROR);
+  })
 }

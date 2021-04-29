@@ -33,8 +33,12 @@ async function fillTutorials() {
         tutItem.classList.add("tutorial-item");
 
         let shortDesc = post.content.rendered.substring(0, 200) + "...";
-        tutItem.innerHTML = `<h3>${post.title.rendered}</h3>
-        <p>${shortDesc}</p><br><br>
+        tutItem.innerHTML = `
+        <img src="${post.featured_media_src_url}" alt="${post.title.rendered}">
+        <div>
+         <h3>${post.title.rendered}</h3>
+         <p>${shortDesc}</p><br><br>
+        </div>
         <a href="tutorial.html?id=${post.id}" class="cta">Read</a>
         `;
 

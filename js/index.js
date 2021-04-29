@@ -277,8 +277,12 @@ async function fillStartLearning() {
     const learningItem = document.createElement("div");
     learningItem.classList.add("learning-item");
     let shortDesc = post.content.rendered.substring(0, 100) + "...";
-    learningItem.innerHTML = `<h3>${post.title.rendered}</h3>
-    <p>${shortDesc}</p><br><br>
+    learningItem.innerHTML = `
+    <img src="${post.featured_media_src_url}" alt="${post.title.rendered}">
+    <div>
+      <h3>${post.title.rendered}</h3>
+      <p>${shortDesc}</p><br><br>
+    </div>
     <a href="tutorial.html?id=${post.id}" class="cta">Read</a>
     `;
 

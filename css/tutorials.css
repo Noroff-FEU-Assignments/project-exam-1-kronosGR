@@ -4,6 +4,8 @@
 
 .tutorial-item {
   position: relative;
+  display: flex;
+  align-items: flex-start;
   text-align: left;
   padding: 10px;
   margin: 15px 5px;
@@ -11,6 +13,8 @@
   border-radius: 10px 10px;
   box-shadow: 5px 5px 10px var(--gray);
 }
+
+
 
 .tutorial-item a {
   position: absolute;
@@ -22,6 +26,13 @@
   color: white;
   border-radius: 15% 0%;
   text-decoration: none;
+}
+
+
+.tutorial-item img{
+  width: 100px;
+  margin-right: 10px;
+  object-fit: contain;
 }
 
 #tutorials-paging {

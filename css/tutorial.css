@@ -20,10 +20,7 @@
 }
 
 .tutorial-content{
-  border: 1px var(--gray-dark) solid;
-  border-radius: var(--radius-def);
   padding: 15px;
-  box-shadow: var(--shadow-def);
   margin-bottom: 20px;
   text-align: left;
 }
@@ -33,20 +30,22 @@
 }
 
 .tutorial--img {
-  width: 30%;
+  width: 100%;
+  box-sizing: border-box;
   float: left;
-  padding: 3% 4% 2% 3%;
+  padding-bottom: 10px;
   transition: var(--transition-dur);
-  border-radius: 15% 0%;
 }
 
 .tutorial--img:hover{
-  transform: scale(var(--scale1-2));
+  transform: scale(0.95);
 }
 
 .tutorial {
   overflow: auto;
-  padding: 3%;
+  margin: 3%;
+  border: 1px var(--gray-dark) solid;
+  box-shadow: var(--shadow-def);
 }
 
 .modal-window {
