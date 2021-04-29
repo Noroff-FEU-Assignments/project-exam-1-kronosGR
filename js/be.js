@@ -33,7 +33,12 @@ export function checkIfLoggedIn(el) {
   }
 }
 
-/**  */
+/**
+ * deletes a comment
+ * @param {string} token 
+ * @param {int} comID comment id
+ * @returns object
+ */
 export async function deleteComment(token, comID) {
   try {
     const res = await fetch(BE_URL + BE_COMMENTS + "/" + comID, {

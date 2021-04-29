@@ -158,7 +158,7 @@ showPage();
 async function showPage() {
   try{
     res = await fetchAllPosts(12, "desc");
-    posts = await getMedia();
+    posts = await getMedia(res);
     showCarousel();
     fillStartLearning();
   } catch (e){
@@ -208,7 +208,7 @@ function printCarouselPages(pag, arr) {
   for (let i = start; i < start + pageSize; i++) {
     p.innerHTML += `
     <a href="tutorial.html?id=${arr[i].id}" class="page-item">
-      <img src=${arr[i].thumb} alt="${arr[i].title}">
+      <img src=${arr[i].thumb} alt="${arr[i].title}" >
       <div>
         <h2>${arr[i].title}</h2>
       </div>
@@ -225,7 +225,7 @@ function printCarouselPages(pag, arr) {
 async function getMedia() {
   let results = res.map(post => {
     return fetchMediaWithUrl(post["_links"]["wp:featuredmedia"][0].href).then(images => {
-      const thumb = images["media_details"].sizes.medium.source_url;
+      const thumb = images["media_details"].sizes.medium.source_url ;
       const title = post.title.rendered;
       const postId = post.id;
       return { title: title, thumb: thumb, id: postId };
