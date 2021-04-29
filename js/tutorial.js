@@ -5,7 +5,16 @@ import {
   getCommentsForBlogPost,
   postComment,
 } from "./be.js";
-import { regexHTML, showError, hideError, posFeedback, negFeedback } from "./utils.js";
+import {
+  regexHTML,
+  showError,
+  hideError,
+  posFeedback,
+  negFeedback,
+  TOAST_MESSAGE,
+  TOAST_ERROR,
+  showToastMsg,
+} from "./utils.js";
 
 const tutorialTitle = document.querySelector(".tutorial-title");
 const tutorial = document.querySelector(".tutorial");
@@ -53,39 +62,44 @@ fillThePage();
 getComments();
 
 async function fillThePage() {
-  const post = await getPostWithId(id);
+  try {
+    const post = await getPostWithId(id);
 
-  const title = post.title.rendered;
-  const text = post.content.rendered;
-  const imgUrl = post.featured_media_src_url;
+    const title = post.title.rendered;
+    const text = post.content.rendered;
+    const imgUrl = post.featured_media_src_url;
 
-  // set document title
-  document.title = "JS World | Tutorial | " + title;
+    // set document title
+    document.title = "JS World | Tutorial | " + title;
 
-  // fix and set document description
-  const shortDesc = text.substring(0, 100);
+    // fix and set document description
+    const shortDesc = text.substring(0, 100);
 
-  const cleanShortDesc = shortDesc.replace(regexHTML, "") + "...";
-  document
-    .querySelector('meta[name="description"]')
-    .setAttribute("content", cleanShortDesc);
+    const cleanShortDesc = shortDesc.replace(regexHTML, "") + "...";
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute("content", cleanShortDesc);
 
-  // show the article/post
-  tutorialTitle.innerHTML = title;
-  tutorial.innerHTML = `
-  <img src="${imgUrl}" alt="${title}" class="tutorial--img"> 
-  <div class="tutorial-content">
+    // show the article/post
+    tutorialTitle.innerHTML = title;
+    tutorial.innerHTML = `
+    <img src="${imgUrl}" alt="${title}" class="tutorial--img"> 
+    <div class="tutorial-content">
     <p>${text}</p>
-  </div>
-  `;
-  modalWindowImg.setAttribute("src", imgUrl);
-  modalWindowImg.setAttribute("alt", title);
-  figCaption.innerHTML = title;
+    </div>
+    `;
+    modalWindowImg.setAttribute("src", imgUrl);
+    modalWindowImg.setAttribute("alt", title);
+    figCaption.innerHTML = title;
 
-  const img = document.querySelector(".tutorial--img");
-  img.addEventListener("click", () => {
-    modalWindow.classList.add("modal-window-show");
-  });
+    const img = document.querySelector(".tutorial--img");
+    img.addEventListener("click", () => {
+      modalWindow.classList.add("modal-window-show");
+    });
+  } catch (e) {
+    console.log(e);
+    showToastMsg("We are sorry something went wrong", TOAST_ERROR);
+  }
 }
 
 comText.addEventListener("input", e => {
@@ -103,7 +117,7 @@ comForm.addEventListener("submit", e => {
   e.preventDefault();
   postComment(sessionStorage.getItem(USER_TOKEN), id, comText.value).then(res => {
     if (res.ok) {
-      console.log(res)
+      console.log(res);
       posFeedback(comFeedback, "Your comment has been posted.");
       getComments();
       comForm.reset();
@@ -115,13 +129,16 @@ comForm.addEventListener("submit", e => {
 // get the comments for the post
 function getComments() {
   commentLit.innerHTML = "";
-  getCommentsForBlogPost(id).then(res => {
-    if (res.ok) {
-      const comments = res.data;
-      if (comments.length > 0) {
-        // print the posts
-        comments.forEach(comment => {
-          commentLit.innerHTML += `<div class="comment-container" id="comment${comment.id}">
+  getCommentsForBlogPost(id)
+    .then(res => {
+      if (res.ok) {
+        const comments = res.data;
+        if (comments.length > 0) {
+          // print the posts
+          comments.forEach(comment => {
+            commentLit.innerHTML += `<div class="comment-container" id="comment${
+              comment.id
+            }">
         <img src="${comment.author_avatar_urls["48"]}" alt="${comment.author_name}">
         <div class="comment-text">
           ${comment.content.rendered}
@@ -131,13 +148,18 @@ function getComments() {
           </div>
         </div>
         </div>`;
-        });
+          });
+        } else {
+          // show an message
+          commentLit.innerHTML = "<span class='msg-nothing'>No comments found</span>";
+        }
       } else {
-        // show an message
-        commentLit.innerHTML = "<span class='msg-nothing'>No comments found</span>";
+        r;
+        // something went bad
       }
-    } else {r
-      // something went bad
-    }
-  });
+    })
+    .catch(e => {
+      console.log(e);
+      showToastMsg("We are sorry something went wrong", TOAST_ERROR);
+    });
 }

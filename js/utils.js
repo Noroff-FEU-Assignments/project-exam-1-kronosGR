@@ -35,7 +35,7 @@ export function showToastMsg(msg, type) {
     background-color: ${color};
     color: white;
     text-align: center;
-    overflow-wrap: break-word;   
+    overflow-wrap: break-word; 
   `;
   toast.innerHTML = msg;
   document.body.appendChild(toast);

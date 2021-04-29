@@ -1,5 +1,5 @@
 import { searchPostsWithTotal, getPostWithId, checkIfLoggedIn } from "./be.js";
-import { showPaging } from "./utils.js";
+import { showPaging, TOAST_ERROR, TOAST_MESSAGE, showToastMsg } from "./utils.js";
 
 const tutorialsPaging = document.querySelector("#tutorials-paging");
 const searchList = document.querySelector(".search-list");
@@ -53,7 +53,11 @@ async function fillResults() {
          <span class='msg-nothing'>No items found</span>
         `;
       }
-    });
+    })
+    .catch(e => {
+      console.log(e);
+      showToastMsg("We are sorry something went wrong", TOAST_ERROR);
+    })
 }
 
 /**

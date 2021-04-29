@@ -35,7 +35,11 @@ logForm.addEventListener("submit", e => {
       logError.innerHTML = res.data.message.replace(Utils.regexAnchor, "");
       console.log(res.data);
     }
-  });
+  })
+  .catch(e => {
+    console.log(e);
+    Utils.showToastMsg("We are sorry something went wrong", Utils.TOAST_ERROR);
+  })
 });
 
 // <------- end of login
@@ -150,6 +154,7 @@ regForm.addEventListener("submit", e => {
     })
     .catch(err => {
       console.log(err);
+      Utils.showToastMsg("We are sorry something went wrong", Utils.TOAST_ERROR);
     });
 });
 // <------- end of registration

@@ -1,5 +1,5 @@
 import { fetchAllPosts, fetchMediaWithUrl, checkIfLoggedIn } from "/js/be.js";
-import { showToastMsg, TOAST_MESSAGE } from "./utils.js";
+import { showToastMsg, TOAST_MESSAGE, TOAST_ERROR } from "./utils.js";
 
 const carousel = document.querySelector(".carousel");
 const carouselInner = document.querySelector(".carousel-inner");
@@ -156,10 +156,16 @@ window.addEventListener("resize", () => {
 showPage();
 
 async function showPage() {
-  res = await fetchAllPosts(12, "desc");
-  posts = await getMedia();
-  showCarousel();
-  fillStartLearning();
+  try{
+    res = await fetchAllPosts(12, "desc");
+    posts = await getMedia();
+    showCarousel();
+    fillStartLearning();
+  } catch (e){
+    console.log(e);
+    showToastMsg("We are sorry something went wrong", TOAST_ERROR);
+    autoplay = false;
+  }
 }
 
 /**

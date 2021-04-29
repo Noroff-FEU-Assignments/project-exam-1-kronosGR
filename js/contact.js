@@ -7,7 +7,7 @@ const email = document.querySelector("#email");
 const subject = document.querySelector("#subject");
 const message = document.querySelector("#message");
 const submitBtn = document.querySelector("#contact--form button");
-const log = document.querySelector("#log-error")
+const log = document.querySelector("#log-error");
 
 let userReady = false;
 let emailReady = false;
@@ -77,12 +77,17 @@ message.addEventListener("input", e => {
 
 contactForm.addEventListener("submit", e => {
   e.preventDefault();
-  Be.sendMessage(username.value, email.value, subject.value, message.value).then(res => {
-    if (res.ok) {
-      Utils.posFeedback(log, res.data.message);
-      contactForm.reset();
-    } else {
-      Utils.negFeedback(log, res.data.message)
-    }
-  });
+  Be.sendMessage(username.value, email.value, subject.value, message.value)
+    .then(res => {
+      if (res.ok) {
+        Utils.posFeedback(log, res.data.message);
+        contactForm.reset();
+      } else {
+        Utils.negFeedback(log, res.data.message);
+      }
+    })
+    .catch(e => {
+      console.log(e);
+      Utils.showToastMsg("We are sorry something went wrong", Utils.TOAST_ERROR);
+    });
 });

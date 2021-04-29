@@ -70,11 +70,16 @@ personalForm.addEventListener("submit", e => {
   user.url = url.value;
   user.id = id;
 
-  Be.updateUser(token, user).then(res => {
-    if (res.ok) {
-      Utils.posFeedback(feedbackPersonal, "Your profile has been updated");
-    }
-  });
+  Be.updateUser(token, user)
+    .then(res => {
+      if (res.ok) {
+        Utils.posFeedback(feedbackPersonal, "Your profile has been updated");
+      }
+    })
+    .catch(e => {
+      console.log(e);
+      Utils.showToastMsg("We are sorry something went wrong", Utils.TOAST_ERROR);
+    });
 });
 
 // password change
@@ -109,13 +114,18 @@ function checkPasswords() {
 passwordForm.addEventListener("submit", e => {
   e.preventDefault();
 
-  Be.updatePassword(token, id, password.value).then(res => {
-    if (res.ok) {
-      Utils.posFeedback(feedbackPassword, "Your password has been changed");
-    } else {
-      console.log(res.data);
-    }
-  });
+  Be.updatePassword(token, id, password.value)
+    .then(res => {
+      if (res.ok) {
+        Utils.posFeedback(feedbackPassword, "Your password has been changed");
+      } else {
+        console.log(res.data);
+      }
+    })
+    .catch(e => {
+      console.log(e);
+      Utils.showToastMsg("We are sorry something went wrong", Utils.TOAST_ERROR);
+    });
 });
 
 getComments();
@@ -124,7 +134,7 @@ getComments();
 function addEventsToAnchors() {
   const deleteAnchors = document.querySelectorAll("a[data-id]");
   deleteAnchors.forEach(del => {
-    del.addEventListener('click', function(e) {
+    del.addEventListener("click", function (e) {
       e.preventDefault();
       const comID = e.target.getAttribute("data-id");
       // delete the comment
@@ -144,33 +154,37 @@ function addEventsToAnchors() {
 
 // show user comments
 async function getComments() {
-  myComments.innerHTML = "";
-  await Be.getCommentsByAuthor(token, id).then(res => {
-    if (res.ok) {
-      const comments = res.data;
-      if (comments.length > 0) {
-        comments.forEach(comment => {
-          myComments.innerHTML += `
-          <div class="comment-container" id="comment${comment.id}">        
-          <div class="comment-text">
-          <span class="comment-date">${comment.date.replace(
-            "T",
-            "  "
-            )}</span>               
-            ${comment.content.rendered}
-            </div>
-            <div>
-            <a href="tutorial.html?id=${comment.post}" class="cta2">View</a>
-            <a href="" data-id="${comment.id}" class="cta2" >Delete</a>
-            </div>
-            </div>`;
-          });
-        } else {
-          myComments.innerHTML = "<span class='msg-nothing'>No comments found</span>";
+  try{    
+    myComments.innerHTML = "";
+    await Be.getCommentsByAuthor(token, id).then(res => {
+      if (res.ok) {
+        const comments = res.data;
+        if (comments.length > 0) {
+          comments.forEach(comment => {
+            myComments.innerHTML += `
+            <div class="comment-container" id="comment${comment.id}">        
+            <div class="comment-text">
+            <span class="comment-date">${comment.date.replace(
+              "T",
+              "  "
+              )}</span>               
+              ${comment.content.rendered}
+              </div>
+              <div>
+              <a href="tutorial.html?id=${comment.post}" class="cta2">View</a>
+              <a href="" data-id="${comment.id}" class="cta2" >Delete</a>
+              </div>
+              </div>`;
+            });
+          } else {
+            myComments.innerHTML = "<span class='msg-nothing'>No comments found</span>";
+          }
         }
-      }
-      myComments.innerHTML += '<a href="#top" class="to-top">Top</a>';
-    });
-    addEventsToAnchors();
+        myComments.innerHTML += '<a href="#top" class="to-top">Top</a>';
+      });
+      addEventsToAnchors();
+    } catch(e){
+      console.log(e);
+      Utils.showToastMsg("We are sorry something went wrong", Utils.TOAST_ERROR);
+    }
 }
-

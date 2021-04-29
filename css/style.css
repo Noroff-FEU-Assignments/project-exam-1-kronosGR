@@ -13,6 +13,7 @@
 
 html,
 body {
+  height: 100%;
   background-color: var(--gray);
   font-family: Roboto, sans-serif;
 }
@@ -213,6 +214,7 @@ nav a {
 main {
   text-align: center;
   width: 98%;
+  min-height: 100vh;
   margin: 0 auto;
   margin-top: 80px;
   padding-top: 10px;
