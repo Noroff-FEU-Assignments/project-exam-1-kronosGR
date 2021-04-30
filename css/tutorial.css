@@ -1,4 +1,4 @@
-.back-container a{
+.back-container a {
   display: flex;
   width: 20%;
   align-items: center;
@@ -9,24 +9,32 @@
   text-decoration: none;
 }
 
-.back-container a:hover{
+.back-container a:hover {
   transition: var(--transition-dur);
   transform: scale(var(--scale1-2));
 }
 
-.back-container img{
+.back-container img {
   height: 20px;
   margin-right: 10px;
 }
 
-.tutorial-content{
+.tutorial-content {
   padding: 15px;
   margin-bottom: 20px;
   text-align: left;
 }
 
-.tutorial-content p{
+.tutorial-content p {
   margin-bottom: 10px;
+}
+
+.img-container {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 150px;
 }
 
 .tutorial--img {
@@ -37,8 +45,9 @@
   transition: var(--transition-dur);
 }
 
-.tutorial--img:hover{
+.tutorial--img:hover {
   transform: scale(0.95);
+  cursor: zoom-in;
 }
 
 .tutorial {
@@ -63,17 +72,17 @@
   align-items: center;
 }
 
-.modal-window-show{
+.modal-window-show {
   z-index: 10;
   opacity: 1;
   transition: var(--transition-dur-0-4);
 }
 
 .modal-window--img {
-  width: 80%;
+  width: 95%;
 }
 
-.close--btn{
+.close--btn {
   position: absolute;
   right: 20px;
   top: 20px;
@@ -86,29 +95,29 @@
   transition: var(--transition-dur);
 }
 
-.close--btn:hover{
+.close--btn:hover {
   transform: scale(var(--scale1-2));
 }
 
-.modal-window--figcaption{
+.modal-window--figcaption {
   color: white;
   font-size: 1.3rem;
   font-style: italic;
   margin-top: 10px;
 }
 
-#comments h2{
+#comments h2 {
   margin: 10px;
 }
-#comments p{
+#comments p {
   margin: 10px;
 }
 
-#comments p a{
+#comments p a {
   color: var(--blue);
 }
 
-#comment-list{
+#comment-list {
   width: 80%;
   border: 1px var(--gray-dark) solid;
   border-radius: var(--radius-def);
@@ -117,26 +126,26 @@
   margin: 10px auto 30px;
 }
 
-#comment--form{
+#comment--form {
   width: 90%;
   margin: 20px auto;
   text-align: left;
 }
 
-#comment--form button{
+#comment--form button {
   display: block;
   margin: 20px auto 40px;
-} 
+}
 
-#comment--form label{
+#comment--form label {
   display: inline;
 }
 
-#com-feedback{
+#com-feedback {
   text-align: center;
 }
 
-.comment-container{
+.comment-container {
   width: 95%;
   margin: 10px 5px;
   padding: 5px;
@@ -145,7 +154,7 @@
   align-items: flex-start;
 }
 
-.comment-text{
+.comment-text {
   text-align: justify;
   display: block;
   width: 100%;
@@ -157,17 +166,17 @@
   font-size: 0.9rem;
 }
 
-.comment-text > div{
+.comment-text > div {
   margin: 5px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
 }
 
-.comment-author{
+.comment-author {
   color: var(--blue);
 }
 
-.comment-date{
+.comment-date {
   font-size: 0.7rem;
 }

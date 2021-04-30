@@ -529,6 +529,10 @@ footer a {
   #search-form {
     right: 100%;
   }
+
+  .img-container {
+    height: 250px;
+  }
 }
 
 @media screen and (min-width: 960px) {
@@ -570,6 +574,11 @@ footer a {
   .carousel,
   .carousel-inner {
     height: 390px;
+  }
+
+
+  .img-container {
+    height: 300px;
   }
 
 }

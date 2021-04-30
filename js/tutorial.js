@@ -93,7 +93,9 @@ async function fillThePage() {
     // show the article/post
     tutorialTitle.innerHTML = title;
     tutorial.innerHTML = `
-    <img src="${imgUrl}" alt="${title}" class="tutorial--img"> 
+    <div class="img-container">
+      <img src="${imgUrl}" alt="${title}" class="tutorial--img"> 
+    </div>
     <div class="tutorial-content">
     <p>${text}</p>
     </div>
