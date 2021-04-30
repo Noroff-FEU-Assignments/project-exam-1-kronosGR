@@ -337,8 +337,8 @@ main > p{
 }
 
 .page-item img:hover{
-  transition: 2s;
-  transform: rotateY(270deg);
+  transition: 1s;
+  filter: contrast(50%);
 }
 
 .after {

@@ -36,6 +36,7 @@ export function showToastMsg(msg, type) {
     color: white;
     text-align: center;
     overflow-wrap: break-word; 
+    z-index:100;
   `;
   toast.innerHTML = msg;
   document.body.appendChild(toast);
