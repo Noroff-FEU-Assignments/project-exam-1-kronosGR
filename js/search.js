@@ -32,6 +32,7 @@ async function fillResults() {
     })
     .then(json => {
       if (json.length > 0) {
+        console.log(json)
         getMedia(json).then(res => {
           res.forEach(post => {
             const searItem = document.createElement("div");

@@ -462,7 +462,7 @@ footer {
 footer a {
   text-decoration: none;
   color: white;
-  margin: 0 5px;
+  margin: 0 10px;
 }
 
 @media screen and (min-width: 600px) {
@@ -532,6 +532,10 @@ footer a {
 
   .img-container {
     height: 250px;
+  }
+
+  .search--thumb {
+    height: 80px;
   }
 }
 
