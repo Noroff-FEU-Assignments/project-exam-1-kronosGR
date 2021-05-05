@@ -157,12 +157,12 @@ window.addEventListener("resize", () => {
 showPage();
 
 async function showPage() {
-  try{
+  try {
     res = await fetchAllPosts(12, "desc");
     posts = await getMedia(res);
     showCarousel();
     fillStartLearning();
-  } catch (e){
+  } catch (e) {
     console.log(e);
     showToastMsg("We are sorry something went wrong", TOAST_ERROR);
     autoplay = false;
@@ -185,8 +185,8 @@ function showCarousel() {
  */
 function adjustSize() {
   const childWidth = carousel.offsetWidth;
-  carousel.style.height = childWidth+"px";  
-  carouselInner.style.height = childWidth+"px";  
+  carousel.style.height = childWidth + "px";
+  carouselInner.style.height = childWidth + "px";
   const children = document.querySelectorAll(".page-item");
   children.forEach(child => {
     child.style.width = (childWidth / 2) * 0.96 + "px";
@@ -204,7 +204,7 @@ function printCarouselPages(pag, arr) {
   const pageSize = 4;
   let start = 0 + (pag * pageSize - pageSize);
 
-  let size = carouselInner.offsetWidth /2
+  let size = carouselInner.offsetWidth / 2;
 
   const p = document.createElement("div");
   p.id = "page" + pag;
@@ -229,8 +229,8 @@ function printCarouselPages(pag, arr) {
  */
 async function getMedia() {
   let results = res.map(post => {
-    return fetchMediaWithUrl(post["_links"]["wp:featuredmedia"][0].href).then(images => {      
-      const thumb = images["media_details"].sizes.thumbnail.source_url ;
+    return fetchMediaWithUrl(post["_links"]["wp:featuredmedia"][0].href).then(images => {
+      const thumb = images["media_details"].sizes.thumbnail.source_url;
       const title = post.title.rendered;
       const postId = post.id;
       return { title: title, thumb: thumb, id: postId };
